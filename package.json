@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "dev": "nodemon app.js",
-  "prisma:migrate": "npx prisma migrate dev",
-  "prisma:reset": "npx prisma migrate reset --force"
-},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:reset": "npx prisma migrate reset --force"
+  },
   "type": "module",
   "keywords": [],
   "author": "",
@@ -18,7 +18,15 @@
     "express": "^5.1.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9",
+    "nodemon": "^3.1.10",
     "prisma": "^6.6.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HugoSCode/AppDevProject.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HugoSCode/AppDevProject/issues"
+  },
+  "homepage": "https://github.com/HugoSCode/AppDevProject#readme"
 }
