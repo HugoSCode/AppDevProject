@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -17,33 +16,36 @@ datasource db {
 model User {
   id        Int       @id @default(autoincrement())
   username  String    @unique
-  role      Role
   email     String    @unique
   password  String
   createdAt DateTime  @default(now())
 }
 
 model Team {
-  id         Int         @id @default(autoincrement())
-  name       String      @unique
-  coach      String
-  stadium    String
-  players    Player[]
-  standings  Standing[]
+  id            Int         @id @default(autoincrement())
+  name          String      @unique
+  coach         String
+  stadium       String
+  players       Player[]
+  teamStats     TeamStats[]
+  homeMatches   Match[]     @relation("HomeTeam")
+  awayMatches   Match[]     @relation("AwayTeam")
+  fromTransfers Transfer[]  @relation("FromTeam")
+  toTransfers   Transfer[]  @relation("ToTeam")
 }
 
 model Player {
-  id         Int         @id @default(autoincrement())
-  name       String
-  age        Int
+  id          Int            @id @default(autoincrement())
+  name        String
+  age         Int
   nationality String
-  position   Position
-  team       Team?       @relation(fields: [teamId], references: [id])
-  teamId     Int?
-  events     MatchEvent[]
-  injuries   Injury[]
-  stats      Statistic[]
-  transfers  Transfer[]
+  position    Position
+  team        Team?          @relation(fields: [teamId], references: [id])
+  teamId      Int?
+  events      MatchEvent[]
+  injuries    Injury[]
+  stats       PlayerStatistic[]
+  transfers   Transfer[]
 }
 
 model Match {
@@ -57,7 +59,7 @@ model Match {
   league     League?     @relation(fields: [leagueId], references: [id])
   leagueId   Int?
   events     MatchEvent[]
-  stats      Statistic[]
+  stats      PlayerStatistic[]
 }
 
 model MatchEvent {
@@ -76,32 +78,32 @@ model League {
   name       String      @unique
   country    String
   matches    Match[]
-  standings  Standing[]
+  standings  TeamStats[]
 }
 
 model TeamStats {
-  id            Int     @id @default(autoincrement())
-  team          Team    @relation(fields: [teamId], references: [id])
-  teamId        Int
-  league        League  @relation(fields: [leagueId], references: [id])
-  leagueId      Int
-  wins          Int
-  draws         Int
-  losses        Int
-  points        Int
+  id         Int     @id @default(autoincrement())
+  team       Team    @relation(fields: [teamId], references: [id])
+  teamId     Int
+  league     League  @relation(fields: [leagueId], references: [id])
+  leagueId   Int
+  wins       Int
+  draws      Int
+  losses     Int
+  points     Int
 }
 
 model Transfer {
-  id         Int     @id @default(autoincrement())
-  player     Player  @relation(fields: [playerId], references: [id])
-  playerId   Int
-  fromTeam   Team    @relation("FromTeam", fields: [fromTeamId], references: [id])
-  fromTeamId Int
-  toTeam     Team    @relation("ToTeam", fields: [toTeamId], references: [id])
-  toTeamId   Int
-  fee        Int
-  date       DateTime
-  transferType  TransferType
+  id          Int          @id @default(autoincrement())
+  player      Player       @relation(fields: [playerId], references: [id])
+  playerId    Int
+  fromTeam    Team         @relation("FromTeam", fields: [fromTeamId], references: [id])
+  fromTeamId  Int
+  toTeam      Team         @relation("ToTeam", fields: [toTeamId], references: [id])
+  toTeamId    Int
+  fee         Int
+  date        DateTime
+  transferType TransferType
 }
 
 model Injury {
@@ -126,20 +128,20 @@ model PlayerStatistic {
   saves      Int
 }
 
-enum Role{
+enum Role {
   NORMAL
   ADMIN
   SUPER_ADMIN
 }
 
-enum Position{
+enum Position {
   GOALKEEPER
   DEFENDER
   MIDFIELDER
   ATTACKER
 }
 
-enum TransferType{
+enum TransferType {
   PERMANENT
   LOAN
   FREE
