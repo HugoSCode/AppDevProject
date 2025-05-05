@@ -5,7 +5,10 @@ import swaggerUi from "swagger-ui-express";
 // Import the index routes module
 import indexRoutes from "./routes/index.js";
 // This should be declared under - import indexRoutes from "./routes/index.js";
-import userRoutes from "./routes/user.js";
+import userRoutes from "./routes/v1/user.js";
+import teamRoutes from "./routes/v1/team.js";
+import playerRoutes from "./routes/v1/player.js";
+import { isContentTypeApplicationJSON } from "./middleware/utils.js";
 
 // Create an Express application
 const app = express();
@@ -21,11 +24,11 @@ const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Student Management System API",
+      title: "Football data API",
       version: "1.0.0",
-      description: "A student management system API",
+      description: "An API for any kind of football information",
       contact: {
-        name: "Grayson Orr",
+        name: "Hugo Smith",
       },
     },
     servers: [
@@ -34,16 +37,18 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ["./routes/*.js"],
+  apis: ["./routes/v1/*.js"],
 };
 
 // This should be declared under - const swaggerOptions = { ... };
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
-
+app.use(isContentTypeApplicationJSON);
 
 app.use("/", indexRoutes);
-app.use("/api/users", userRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/teams", teamRoutes);
+app.use("/api/v1/players", playerRoutes);
 
 
 // Start the server on port 3000

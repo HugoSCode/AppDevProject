@@ -1,4 +1,4 @@
-import prisma from "../prisma/client.js";
+import prisma from "../../prisma/client.js";
 // Add the following code under import prisma from "../prisma/client.js";
 
 /**
