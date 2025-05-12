@@ -8,7 +8,18 @@ import {
   deleteUser,
 } from "../../controllers/v1/user.js";
 
+import {
+  validatePostUser,
+  validatePutUser,
+}from "../../middleware/validation/user.js"
+
 const router = express.Router();
+
+router.post("/", validatePostUser, createUser);
+router.get("/", getUsers);
+router.get("/:id", getUser);
+router.put("/:id", validatePutUser, updateUser);
+router.delete("/:id", deleteUser);
 
 /**
  * @swagger
@@ -21,13 +32,13 @@ const router = express.Router();
  *           type: string
  *           format: uuid
  *           example: "123e4567-e89b-12d3-a456-426614174000"
- *         Username:
+ *         username:
  *           type: string
  *           example: "Username"
- *         Email:
+ *         email:
  *           type: string
  *           example: "Email"
- *         Password:
+ *         password:
  *           type: string
  *           example: "Password"
  *         createdAt:
@@ -89,7 +100,6 @@ const router = express.Router();
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.post("/", createUser);
 
 /**
  * @swagger
@@ -131,7 +141,6 @@ router.post("/", createUser);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.get("/", getUsers);
 
 /**
  * @swagger
@@ -175,7 +184,6 @@ router.get("/", getUsers);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.get("/:id", getUser);
 
 /**
  * @swagger
@@ -231,7 +239,6 @@ router.get("/:id", getUser);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.put("/:id", updateUser);
 
 /**
  * @swagger
@@ -279,6 +286,5 @@ router.put("/:id", updateUser);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.delete("/:id", deleteUser);
 
 export default router;
