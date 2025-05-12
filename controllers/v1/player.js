@@ -11,7 +11,7 @@ const createPlayer = async (req, res) => {
     // Try/catch blocks are used to handle exceptions
     try {
       // Create a new player
-      await prisma.player.create({
+      const newPlayer=await prisma.player.create({
 
         data:{
             name: req.body.name,
@@ -22,13 +22,11 @@ const createPlayer = async (req, res) => {
         },
       });
   
-      // Get all players from the player table
-      const newPlayers = await prisma.player.findMany();
   
       // Send a JSON response
       return res.status(201).json({
         message: "Player successfully created",
-        data: newPlayers,
+        data: newPlayer,
       });
     } catch (err) {
       return res.status(500).json({

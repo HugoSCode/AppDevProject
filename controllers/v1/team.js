@@ -8,33 +8,29 @@ import prisma from "../../prisma/client.js";
  * @returns {object} - The response object
  */
 const createTeam = async (req, res) => {
-    // Try/catch blocks are used to handle exceptions
-    try {
-      // Create a new team
-      await prisma.team.create({
-        // Data to be inserted
+  try {
+    const newTeam = await prisma.team.create({
+      data: {
         name: req.body.name,
-          coach: req.body.coach,
-          stadium: req.body.stadium,
-          players: {
-            connect: req.body.playerIds.map(id => ({ id }))
-        },
-      });
-  
-      // Get all teams from the team table
-      const newTeams = await prisma.team.findMany();
-  
-      // Send a JSON response
-      return res.status(201).json({
-        message: "Team successfully created",
-        data: newTeams,
-      });
-    } catch (err) {
-      return res.status(500).json({
-        message: err.message,
-      });
-    }
-  };
+        coach: req.body.coach,
+        stadium: req.body.stadium,
+        players: {
+          connect: req.body.playerIds.map(id => ({ id: id }))
+        }
+      }
+    });
+
+    return res.status(201).json({
+      message: "Team successfully created",
+      data: newTeam,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
 
 
   // Add the following code under the createTeam function

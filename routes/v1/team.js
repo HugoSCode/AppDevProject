@@ -9,7 +9,6 @@ import {
 } from "../../controllers/v1/team.js";
 
 const router = express.Router();
-
 /**
  * @swagger
  * components:
@@ -17,10 +16,6 @@ const router = express.Router();
  *     Team:
  *       type: object
  *       properties:
- *         id:
- *           type: string
- *           format: uuid
- *           example: "123e4567-e89b-12d3-a456-426614174000"
  *         name:
  *           type: string
  *           example: "Arsenal"
@@ -30,19 +25,15 @@ const router = express.Router();
  *         stadium:
  *           type: string
  *           example: "Emirates Stadium"
- *         players:
+ *         playerIds:
  *           type: array
+ *           description: Array of player UUIDs to associate with the team
  *           items:
- *             $ref: "#/components/schemas/Player"  # Reference to Player schema
- *     Player:
- *       type: object
- *       properties:
- *         id:
- *           type: string
- *           format: uuid
- *           example: "123e4567-e89b-12d3-a456-426614174001"
- * 
+ *             type: string
+ *             format: uuid
+ *           example: ["123e4567-e89b-12d3-a456-426614174001", "223e4567-e89b-12d3-a456-426614174002"]
  */
+
 
 
 
