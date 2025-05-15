@@ -108,6 +108,31 @@ router.delete("/:id", deleteUser);
  *     summary: Get all users
  *     tags:
  *       - User
+ *     parameters:
+ *       - in: query
+ *         name: username
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter users by username
+ *       - in: query
+ *         name: email
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter users by email
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [id, username, email]
+ *         description: Field to sort the institutions by (default is 'id')
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *         description: Order to sort the institutions by (default is 'asc')
  *     responses:
  *       '200':
  *         description: Success
@@ -129,7 +154,7 @@ router.delete("/:id", deleteUser);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "No users found"
+ *                   example: No users found
  *       '500':
  *         description: Internal server error
  *         content:
@@ -139,8 +164,9 @@ router.delete("/:id", deleteUser);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "An unexpected error occurred"
+ *                   example: An unexpected error occurred
  */
+
 
 /**
  * @swagger

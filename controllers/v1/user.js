@@ -17,8 +17,21 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const users = await userRepository.findAll();
-    if (!users) {
+    const filters={
+      username: req.query.username || undefined,
+      email: req.query.email || undefined,
+    };
+
+    const sortBy=req.query.sortBy || "id";
+    const sortOrder=req.query.sortOrder==="desc" ? "desc" : "asc";
+
+    const users = await userRepository.findAll(
+      filters,
+      sortBy,
+      sortOrder
+    );
+      
+    if (!users || users.length==0) {
       return res.status(404).json({ message: "No users found" });
     }
     return res.status(200).json({

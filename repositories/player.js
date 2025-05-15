@@ -8,9 +8,34 @@ class PlayerRepository {
   }
 
   // Get all players
-  async findAll() {
-    return await prisma.player.findMany();
+  async findAll(filters = {}, sortBy = "id", sortOrder = "asc") {
+    // Create an empty query object
+    const query = {
+      orderBy: {
+        [sortBy]: sortOrder,
+      },
+    };
+  
+    if (Object.keys(filters).length > 0) {
+      query.where = {};
+      for (const [key, value] of Object.entries(filters)) {
+        if (value) {
+          if (key === 'name' || key === 'nationality') {
+            query.where[key] = { contains: value };
+          }
+          else if (key === 'age') {
+            query.where.age = { equals: Number(value) }; 
+          }
+          else if (key === 'position') {
+            query.where[key] = { equals: value };
+          }
+        }
+      }
+    }
+  
+    return await prisma.player.findMany(query);
   }
+  
 
   // Get a single player by ID
   async findById(id) {

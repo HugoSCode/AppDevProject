@@ -16,16 +16,27 @@ const createPlayer = async (req, res) => {
 // Get all players
 const getPlayers = async (req, res) => {
   try {
-    const players = await playerRepository.findAll();
-    if (!players.length) {
+    const filters = {
+      name: req.query.name || undefined,
+      age: req.query.age || undefined,
+      nationality: req.query.nationality || undefined,
+      position: req.query.position || undefined
+    };
+
+    const sortBy = req.query.sortBy || "id";
+    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+    const players = await playerRepository.findAll(filters, sortBy, sortOrder);
+
+    if (!players || players.length === 0) {
       return res.status(404).json({ message: "No players found" });
     }
+
     return res.status(200).json({ data: players });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 };
-
 // Get a single player
 const getPlayer = async (req, res) => {
   try {

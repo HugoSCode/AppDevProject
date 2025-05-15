@@ -48,7 +48,7 @@ const validatePostTeam = (req, res, next) => {
 
 const validatePutTeam = (req, res, next) => {
   const teamSchema = Joi.object({
-    teamname: Joi.string()
+     name: Joi.string()
       .min(4)
       .max(20)
       .optional()
@@ -59,27 +59,28 @@ const validatePutTeam = (req, res, next) => {
         "string.empty": "Team name cannot be empty",
       }),
 
-    email: Joi.string()
+    coach: Joi.string()
       .email()
       .min(6)
       .max(20)
       .optional()
       .messages({
-        "string.base": "Email must be a string",
-        "string.email": "Email must be a valid email address",
-        "string.min": "Email must be at least 6 characters",
-        "string.max": "Email must not exceed 20 characters",
+        "string.base": "Coach must be a string",
+        "string.min": "Coach name must be at least 6 characters",
+        "string.max": "Coach name must not exceed 20 characters",
+        "any.required": "Coach is required",
       }),
 
-    password: Joi.string()
+    stadium: Joi.string()
       .min(6)
       .max(100)
       .optional()
       .messages({
-        "string.base": "Password must be a string",
-        "string.min": "Password must be at least 6 characters",
-        "string.max": "Password must not exceed 100 characters",
-        "string.empty": "Password cannot be empty",
+        "string.base": "Stadium must be a string",
+        "string.min": "Stadium name must be at least 6 characters",
+        "string.max": "Stadium name must not exceed 100 characters",
+        "string.empty": "Stadium cannot be empty",
+        "any.required": "Stadium is required",
       }),
   }).min(1); // Require at least one field to be updated
 

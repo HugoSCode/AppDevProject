@@ -15,15 +15,27 @@ const createTeam = async (req, res) => {
 
 const getTeams = async (req, res) => {
   try {
-    const teams = await teamRepository.findAll();
-    if (!teams.length) {
+    const filters = {
+      name: req.query.name || undefined,
+      coach: req.query.coach || undefined,
+      stadium: req.query.stadium || undefined
+    };
+
+    const sortBy = req.query.sortBy || "id";
+    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+    const teams = await teamRepository.findAll(filters, sortBy, sortOrder);
+
+    if (!teams || teams.length === 0) {
       return res.status(404).json({ message: "No teams found" });
     }
+
     return res.status(200).json({ data: teams });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 };
+
 
 const getTeam = async (req, res) => {
   try {

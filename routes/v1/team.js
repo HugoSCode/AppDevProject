@@ -8,7 +8,21 @@ import {
   deleteTeam,
 } from "../../controllers/v1/team.js";
 
+
+import {
+  validatePostTeam,
+  validatePutTeam,
+}from "../../middleware/validation/team.js"
+
 const router = express.Router();
+
+
+router.post("/", validatePostTeam, createTeam);
+router.get("/", getTeams);
+router.get("/:id", getTeam);
+router.put("/:id", validatePutTeam, updateTeam);
+router.delete("/:id", deleteTeam);
+
 /**
  * @swagger
  * components:
@@ -95,6 +109,37 @@ router.post("/", createTeam);
  *     summary: Get all teams
  *     tags:
  *       - Team
+ *     parameters:
+ *       - in: query
+ *         name: name
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter teams by name
+ *       - in: query
+ *         name: coach
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter teams by coach name
+ *       - in: query
+ *         name: stadium
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter teams by stadium name
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [id, name, coach, stadium]
+ *         description: Field to sort the teams by (default is 'id')
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *         description: Order to sort the teams by (default is 'asc')
  *     responses:
  *       '200':
  *         description: Success
@@ -116,7 +161,7 @@ router.post("/", createTeam);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "No teams found"
+ *                   example: No teams found
  *       '500':
  *         description: Internal server error
  *         content:
@@ -126,9 +171,8 @@ router.post("/", createTeam);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "An unexpected error occurred"
+ *                   example: An unexpected error occurred
  */
-router.get("/", getTeams);
 
 /**
  * @swagger
@@ -172,7 +216,6 @@ router.get("/", getTeams);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.get("/:id", getTeam);
 
 /**
  * @swagger
@@ -228,7 +271,6 @@ router.get("/:id", getTeam);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.put("/:id", updateTeam);
 
 /**
  * @swagger
@@ -276,6 +318,5 @@ router.put("/:id", updateTeam);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.delete("/:id", deleteTeam);
 
 export default router;

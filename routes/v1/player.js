@@ -8,7 +8,19 @@ import {
   deletePlayer,
 } from "../../controllers/v1/player.js";
 
+import {
+  validatePostPlayer,
+  validatePutPlayer,
+}from "../../middleware/validation/player.js"
+
+
 const router = express.Router();
+
+router.post("/", validatePostPlayer, createPlayer);
+router.get("/", getPlayers);
+router.get("/:id", getPlayer);
+router.put("/:id", validatePutPlayer, updatePlayer);
+router.delete("/:id", deletePlayer);
 
 /**
  * @swagger
@@ -93,7 +105,6 @@ const router = express.Router();
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.post("/", createPlayer);
 
 /**
  * @swagger
@@ -102,6 +113,43 @@ router.post("/", createPlayer);
  *     summary: Get all players
  *     tags:
  *       - Player
+ *     parameters:
+ *       - in: query
+ *         name: name
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter players by name
+ *       - in: query
+ *         name: nationality
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter players by nationality
+ *       - in: query
+ *         name: age
+ *         required: false
+ *         schema:
+ *           type: int
+ *         description: Filter players by position
+ *       - in: query
+ *         name: position
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter players by position
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [id, name, nationality, position]
+ *         description: Field to sort the players by (default is 'id')
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *         description: Order to sort the players by (default is 'asc')
  *     responses:
  *       '200':
  *         description: Success
@@ -135,7 +183,7 @@ router.post("/", createPlayer);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.get("/", getPlayers);
+
 
 /**
  * @swagger
@@ -179,7 +227,6 @@ router.get("/", getPlayers);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.get("/:id", getPlayer);
 
 /**
  * @swagger
@@ -235,7 +282,6 @@ router.get("/:id", getPlayer);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.put("/:id", updatePlayer);
 
 /**
  * @swagger
@@ -283,6 +329,5 @@ router.put("/:id", updatePlayer);
  *                   type: string
  *                   example: "An unexpected error occurred"
  */
-router.delete("/:id", deletePlayer);
 
 export default router;

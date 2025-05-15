@@ -5,9 +5,26 @@ class UserRepository {
     return await prisma.user.create({ data });
   }
 
-  async findAll() {
-    return await prisma.user.findMany();
-  }
+  async findAll(filters = {}, sortBy="id", sortOrder="asc") {
+    // Create an empty query object
+    const query = {
+      orderBy: {
+        [sortBy]: sortOrder,
+      }
+    };
+
+    if (Object.keys(filters).length > 0) {
+      query.where = {};
+      // Loop through the filters and apply them dynamically
+      for (const [key, value] of Object.entries(filters)) {
+        if (value) {
+          query.where[key] = { contains: value };
+        }
+      }
+    }
+
+    return await prisma.user.findMany(query);
+}
 
   async findById(id) {
     return await prisma.user.findUnique({
