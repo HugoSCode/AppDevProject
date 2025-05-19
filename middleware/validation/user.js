@@ -18,12 +18,12 @@ const validatePostUser = (req, res, next) => {
       email: Joi.string()
         .email()
         .min(6)
-        .max(20)
+        .max(30)
         .messages({
           "string.base": "Email must be a string",
           "string.email": "Email must be a valid email address",
           "string.min": "Email must be at least 6 characters",
-          "string.max": "Email must not exceed 20 characters",
+          "string.max": "Email must not exceed 30 characters",
           "any.required": "Email is required",
         }),
   
@@ -77,13 +77,13 @@ const validatePutUser = (req, res, next) => {
     email: Joi.string()
       .email()
       .min(6)
-      .max(20)
+      .max(30)
       .optional()
       .messages({
         "string.base": "Email must be a string",
         "string.email": "Email must be a valid email address",
         "string.min": "Email must be at least 6 characters",
-        "string.max": "Email must not exceed 20 characters",
+        "string.max": "Email must not exceed 30 characters",
       }),
 
     password: Joi.string()
