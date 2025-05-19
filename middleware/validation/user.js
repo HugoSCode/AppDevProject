@@ -1,5 +1,7 @@
 import Joi from "joi";
 
+const validRoles= ["ADMIN", "SUPER_ADMIN", "NORMAL"];
+
 const validatePostUser = (req, res, next) => {
     const userSchema = Joi.object({
       username: Joi.string()
@@ -35,6 +37,17 @@ const validatePostUser = (req, res, next) => {
           "string.empty": "Password cannot be empty",
           "any.required": "Password is required",
         }),
+
+         role: Joi.string()
+              .max(20)  // Max length of the string
+              .required()  // Must be present
+              .valid(...validRoles)  // Must be one of the valid enum values
+              .messages({
+                "string.base": "Role must be a string",
+                "string.max": "Role must not exceed 20 characters",
+                "any.required": "Role is required",
+                "any.only": "Role must be one of the following: ADMIN, SUPER_ADMIN, NORMAL",
+              }),
     });
   
     const { error } = userSchema.validate(req.body);
@@ -82,6 +95,17 @@ const validatePutUser = (req, res, next) => {
         "string.min": "Password must be at least 6 characters",
         "string.max": "Password must not exceed 100 characters",
         "string.empty": "Password cannot be empty",
+      }),
+
+      role: Joi.string()
+      .max(20)  // Max length of the string
+      .required()  // Must be present
+      .valid(...validRoles)  // Must be one of the valid enum values
+      .messages({
+        "string.base": "Role must be a string",
+        "string.max": "Role must not exceed 20 characters",
+        "any.required": "Role is required",
+        "any.only": "Role must be one of the following: ADMIN, SUPER_ADMIN, NORMAL",
       }),
   }).min(1); // Require at least one field to be updated
 

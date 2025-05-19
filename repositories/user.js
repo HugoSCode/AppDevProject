@@ -18,7 +18,12 @@ class UserRepository {
       // Loop through the filters and apply them dynamically
       for (const [key, value] of Object.entries(filters)) {
         if (value) {
-          query.where[key] = { contains: value };
+          if (key === 'email' || key === 'username'){
+            query.where[key] = { contains: value };
+          }
+          else if (key === 'role'){
+            query.where[key]={equals: value };
+          }
         }
       }
     }

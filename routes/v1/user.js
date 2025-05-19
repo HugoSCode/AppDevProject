@@ -40,7 +40,14 @@ router.delete("/:id", deleteUser);
  *           example: "Email"
  *         password:
  *           type: string
- *           example: "Password"
+ *           example: "password"
+ *         role:
+ *           type: string
+ *           enum:
+ *             - ADMIN
+ *             - SUPER_ADMIN
+ *             - NORMAL
+ *           example: "ADMIN"
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -121,6 +128,12 @@ router.delete("/:id", deleteUser);
  *         schema:
  *           type: string
  *         description: Filter users by email
+ *       - in: query
+ *         name: role
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter users by role
  *       - in: query
  *         name: sortBy
  *         schema:

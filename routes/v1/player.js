@@ -131,7 +131,7 @@ router.delete("/:id", deletePlayer);
  *         required: false
  *         schema:
  *           type: int
- *         description: Filter players by position
+ *         description: Filter players by age
  *       - in: query
  *         name: position
  *         required: false

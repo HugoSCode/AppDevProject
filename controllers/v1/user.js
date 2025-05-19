@@ -20,6 +20,7 @@ const getUsers = async (req, res) => {
     const filters={
       username: req.query.username || undefined,
       email: req.query.email || undefined,
+      role: req.query.role || undefined,
     };
 
     const sortBy=req.query.sortBy || "id";
