@@ -2,6 +2,14 @@ import userRepository from "../../repositories/user.js";
 
 const createUser = async (req, res) => {
   try {
+    if (req.user.role === 'NORMAL') {
+      return res.status(403).json({ message: "Denied: Normal users are not authorized to create new users" });
+    } else if (req.user.role === 'ADMIN') {
+      if (req.body.role != 'NORMAL') {
+        return res.status(404).json({ message: "Denied: Admin users are only authorized to create NORMAL users" });
+      }
+      delete req.body.password;
+    }
     await userRepository.create(req.body);
     const newUsers = await userRepository.findAll();
     return res.status(201).json({
@@ -17,22 +25,22 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const filters={
+    const filters = {
       username: req.query.username || undefined,
       email: req.query.email || undefined,
       role: req.query.role || undefined,
     };
 
-    const sortBy=req.query.sortBy || "id";
-    const sortOrder=req.query.sortOrder==="desc" ? "desc" : "asc";
+    const sortBy = req.query.sortBy || "id";
+    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
 
     const users = await userRepository.findAll(
       filters,
       sortBy,
       sortOrder
     );
-      
-    if (!users || users.length==0) {
+
+    if (!users || users.length == 0) {
       return res.status(404).json({ message: "No users found" });
     }
     return res.status(200).json({

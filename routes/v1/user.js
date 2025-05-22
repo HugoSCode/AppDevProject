@@ -56,6 +56,13 @@ router.delete("/:id", deleteUser);
  *           type: string
  *           format: date-time
  *           example: "2024-07-14T12:34:56Z"
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   security:
+ *     - BearerAuth: []
  */
 
 /**
@@ -65,6 +72,8 @@ router.delete("/:id", deleteUser);
  *     summary: Create a new user
  *     tags:
  *       - User
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

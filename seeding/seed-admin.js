@@ -1,7 +1,7 @@
 import fs from 'fs';
-import prisma from '../prisma/client.js'; // Adjust path if needed
-import { validatePostUser } from '../middleware/validation/user.js'; // Adjust path to your validation file
-
+import bcrypt from 'bcryptjs';
+import prisma from '../prisma/client.js'; 
+import { validatePostUser } from '../middleware/validation/user.js'; 
 
 const validateUser = (user) => {
   const req = { body: user };
@@ -14,17 +14,18 @@ const validateUser = (user) => {
     }),
   };
 
-  validatePostUser(req, res, () => {}); // Pass an empty function since we're not using next()
+  validatePostUser(req, res, () => {}); 
 };
 
 const seedAdminUsers = async () => {
   try {
+    await prisma.user.deleteMany();
 
     const adminUsersData = [
       {
         username: "johnDoe",
         email: "admin1@example.com",
-        password: "password123", 
+        password: "password123",
         role: "ADMIN"
       },
       {
@@ -53,16 +54,22 @@ const seedAdminUsers = async () => {
       }
     ];
 
-   
-    const validatedUsers = adminUsersData.map((user) => {
-      validateUser(user); 
-      return { ...user }; 
-    });
+    const validatedUsers = await Promise.all(
+      adminUsersData.map(async (user) => {
+        validateUser(user);
 
-    
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+
+        return {
+          ...user,
+          password: hashedPassword,
+        };
+      })
+    );
+
     await prisma.user.createMany({
       data: validatedUsers,
-      skipDuplicates: true, // Prevent duplicate entries if the email already exists
+      skipDuplicates: true,
     });
 
     console.log('Admin users successfully seeded');

@@ -1,4 +1,6 @@
 // Import the Express module
+import dotenv from 'dotenv';
+dotenv.config();
 import express from "express";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
@@ -9,6 +11,11 @@ import userRoutes from "./routes/v1/user.js";
 import teamRoutes from "./routes/v1/team.js";
 import playerRoutes from "./routes/v1/player.js";
 import { isContentTypeApplicationJSON } from "./middleware/utils.js";
+import authRoutes from "./routes/v1/auth.js";
+import jwtAuth from "./middleware/jwtAuth.js";
+
+
+
 
 // Create an Express application
 const app = express();
@@ -46,9 +53,10 @@ app.use(isContentTypeApplicationJSON);
 
 app.use("/", indexRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/users", jwtAuth, userRoutes);
 app.use("/api/v1/teams", teamRoutes);
 app.use("/api/v1/players", playerRoutes);
+app.use("/api/v1/auth",  authRoutes);
 
 
 // Start the server on port 3000
