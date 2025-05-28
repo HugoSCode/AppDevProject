@@ -124,6 +124,8 @@ router.delete("/:id", deleteUser);
  *     summary: Get all users
  *     tags:
  *       - User
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: username
@@ -197,6 +199,8 @@ router.delete("/:id", deleteUser);
  *     summary: Get an user by id
  *     tags:
  *       - User
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -240,6 +244,8 @@ router.delete("/:id", deleteUser);
  *     summary: Update an user by id
  *     tags:
  *       - User
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

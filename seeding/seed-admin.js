@@ -19,7 +19,6 @@ const validateUser = (user) => {
 
 const seedAdminUsers = async () => {
   try {
-    await prisma.user.deleteMany();
 
     const adminUsersData = [
       {

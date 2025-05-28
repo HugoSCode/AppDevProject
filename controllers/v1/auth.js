@@ -11,10 +11,13 @@ const register = async (req, res) => {
 
     if (user) return res.status(409).json({ message: "User already exists" });
 
-    /**
-     * A salt is random bits added to a password before it is hashed. Salts
-     * create unique passwords even if two users have the same passwords
-     */
+   else if (req.body.role!="NORMAL"){
+      return res.status(404).json({
+        message: "Only NORMAL users can be registered"
+      });
+    }
+    else{
+
     const salt = await bcryptjs.genSalt();
 
     /**
@@ -41,11 +44,14 @@ const register = async (req, res) => {
       message: "User successfully registered",
       data: user,
     });
-  } catch (err) {
+  }
+ } catch (err) {
     return res.status(500).json({
       message: err.message,
     });
   }
+      
+
 };
 
 const login = async (req, res) => {
@@ -57,8 +63,11 @@ const login = async (req, res) => {
 
     const user = await prisma.user.findUnique({ where: { username } });
 
-    if (!user)
+   
+
+    if (!user){
       return res.status(401).json({ message: "Invalid username" });
+    }
 
     if (
       user.loginAttempts >= MAX_LOGIN_ATTEMPTS &&
@@ -74,7 +83,7 @@ const login = async (req, res) => {
      * hash, i.e., user's hashed password
      */
     const isPasswordCorrect = await bcryptjs.compare(password, user.password);
-
+    console.log(password);
     if (!isPasswordCorrect) {
       await prisma.user.update({
         where: { username },
@@ -98,11 +107,15 @@ const login = async (req, res) => {
   {
     id: user.id,
     username: user.username,
+    role: user.role,
+    enabled: user.enabled
   },
   process.env.JWT_SECRET, // <-- make sure this isn't just `JWT_SECRET`
   { expiresIn: process.env.JWT_LIFETIME }
 );
-
+     if(!user.enabled){
+      return res.status(403).json({ message: "Denied: Your account is disabled"});
+    }
 
     await prisma.user.update({
       where: { username },

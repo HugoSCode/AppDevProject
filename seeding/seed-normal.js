@@ -1,6 +1,21 @@
 import fs from 'fs';
 import csv from 'csv-parser';
+import bcrypt from 'bcryptjs';
 import prisma from '../prisma/client.js'; // Adjust path if needed
+import { validatePostUser } from '../middleware/validation/user.js';
+
+const validateUser = (user) => {
+  const req = { body: user };
+  const res = {
+    status: (code) => ({
+      json: (message) => {
+        console.log(message.message);
+        process.exit(1);
+      },
+    }),
+  };
+  validatePostUser(req, res, () => {}); // Pass an empty function since we're not using next()
+};
 
 async function seedUsers() {
   const users = [];
@@ -9,7 +24,6 @@ async function seedUsers() {
   fs.createReadStream('seed-normal.csv')
     .pipe(csv())
     .on('data', (row) => {
-      // Push user data into the users array, ensuring 'role' matches the enum
       users.push({
         username: row.username,
         email: row.email,
@@ -20,9 +34,22 @@ async function seedUsers() {
     .on('end', async () => {
       console.log('CSV file successfully processed');
 
-      // Insert users into the database
-      for (const user of users) {
+          const validatedUsers = await Promise.all(
+            users.map(async (user) => {
+              validateUser(user);
+      
+              const hashedPassword = await bcrypt.hash(user.password, 10);
+      
+              return {
+                ...user,
+                password: hashedPassword,
+              };
+            })
+          );
+
+      for (const user of validatedUsers) {
         try {
+ 
           const createdUser = await prisma.user.create({
             data: user,
           });

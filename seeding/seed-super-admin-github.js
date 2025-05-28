@@ -1,8 +1,9 @@
 import fetch from "node-fetch";
 import prisma from "../prisma/client.js";
 import { validatePostUser } from "../middleware/validation/user.js"; 
+import bcrypt from "bcryptjs";
 
-
+await prisma.user.deleteMany();
 const validateUser = (user) => {
   const req = { body: user };
   const res = {
@@ -13,7 +14,6 @@ const validateUser = (user) => {
       },
     }),
   };
-
   validatePostUser(req, res, () => {}); // Pass an empty function since we're not using next()
 };
 
@@ -26,7 +26,12 @@ const seedSuperAdminUsersFromGitHub = async () => {
     const data = await Promise.all(
       superAdminUsersData.map(async (user) => {
         validateUser(user); 
-        return { ...user }; 
+
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+        return{
+          ...user,
+          password: hashedPassword,
+        };
       })
     );
 

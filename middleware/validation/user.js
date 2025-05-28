@@ -48,6 +48,11 @@ const validatePostUser = (req, res, next) => {
                 "any.required": "Role is required",
                 "any.only": "Role must be one of the following: ADMIN, SUPER_ADMIN, NORMAL",
               }),
+        enabled: Joi.boolean()
+        .optional()
+        .messages({
+          "boolean.base": "enabled must be either true or false",
+      }),
     });
   
     const { error } = userSchema.validate(req.body);
@@ -99,13 +104,19 @@ const validatePutUser = (req, res, next) => {
 
       role: Joi.string()
       .max(20)  // Max length of the string
-      .required()  // Must be present
+      .optional()  // Must be present
       .valid(...validRoles)  // Must be one of the valid enum values
       .messages({
         "string.base": "Role must be a string",
         "string.max": "Role must not exceed 20 characters",
         "any.required": "Role is required",
         "any.only": "Role must be one of the following: ADMIN, SUPER_ADMIN, NORMAL",
+      }),
+
+     enabled: Joi.boolean()
+        .optional()
+        .messages({
+          "boolean.base": "enabled must be either true or false",
       }),
   }).min(1); // Require at least one field to be updated
 
