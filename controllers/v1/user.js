@@ -133,7 +133,7 @@ const updateUser = async (req, res) => {
       if (!updateThemself && user.role==="SUPER_ADMIN"){
         return res.status(403).json({message: "Denied: Not authorised to update other SUPER_ADMIN users information"});
       }
-      if (disablingUser && user.role==="SUPER_ADMIN"){
+      if (isChangingEnabled && user.role==="SUPER_ADMIN"){
         return res.status(403).json({message: "Denied: Not authorised to enable or disbale SUPER_ADMIN users"});
       }
     }
@@ -143,7 +143,7 @@ const updateUser = async (req, res) => {
    if(req.user.role!="SUPER_ADMIN" && isChangingEnabled){
     return res.status(403).json({message: "Denied: Only SUPER_ADMIN users can change a users status"});
    }
-
+    console.log(req.body);
     user = await userRepository.update(req.params.id, req.body);
     return res.status(200).json({
       message: `User with the id: ${req.params.id} successfully updated`,

@@ -49,6 +49,8 @@ const validatePostUser = (req, res, next) => {
                 "any.only": "Role must be one of the following: ADMIN, SUPER_ADMIN, NORMAL",
               }),
         enabled: Joi.boolean()
+        .truthy("true")
+        .falsy("false")
         .optional()
         .messages({
           "boolean.base": "enabled must be either true or false",
@@ -114,13 +116,15 @@ const validatePutUser = (req, res, next) => {
       }),
 
      enabled: Joi.boolean()
+        .truthy("true")
+        .falsy("false")
         .optional()
         .messages({
           "boolean.base": "enabled must be either true or false",
       }),
   }).min(1); // Require at least one field to be updated
 
-  const { error } = userSchema.validate(req.body);
+ const { error, value } = userSchema.validate(req.body, { convert: true });
 
   if (error) {
     return res.status(409).json({ message: error.details[0].message });
