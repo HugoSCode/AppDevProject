@@ -14,7 +14,7 @@ const validateUser = (user) => {
       },
     }),
   };
-  validatePostUser(req, res, () => {}); // Pass an empty function since we're not using next()
+  validatePostUser(req, res, () => { }); // Pass an empty function since we're not using next()
 };
 
 async function seedUsers() {
@@ -27,29 +27,29 @@ async function seedUsers() {
       users.push({
         username: row.username,
         email: row.email,
-        password: row.password,  
-        role: row.role.toUpperCase(), 
+        password: row.password,
+        role: row.role.toUpperCase(),
       });
     })
     .on('end', async () => {
       console.log('CSV file successfully processed');
 
-          const validatedUsers = await Promise.all(
-            users.map(async (user) => {
-              validateUser(user);
-      
-              const hashedPassword = await bcrypt.hash(user.password, 10);
-      
-              return {
-                ...user,
-                password: hashedPassword,
-              };
-            })
-          );
+      const validatedUsers = await Promise.all(
+        users.map(async (user) => {
+          validateUser(user);
+
+          const hashedPassword = await bcrypt.hash(user.password, 10);
+
+          return {
+            ...user,
+            password: hashedPassword,
+          };
+        })
+      );
 
       for (const user of validatedUsers) {
         try {
- 
+
           const createdUser = await prisma.user.create({
             data: user,
           });
@@ -58,7 +58,7 @@ async function seedUsers() {
           console.error('Error creating user:', error);
         }
       }
-     
+
     });
 }
 

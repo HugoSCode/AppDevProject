@@ -11,46 +11,46 @@ const register = async (req, res) => {
 
     if (user) return res.status(409).json({ message: "User already exists" });
 
-   else if (req.body.role!="NORMAL"){
+    else if (req.body.role != "NORMAL") {
       return res.status(404).json({
         message: "Only NORMAL users can be registered"
       });
     }
-    else{
+    else {
 
-    const salt = await bcryptjs.genSalt();
+      const salt = await bcryptjs.genSalt();
 
-    /**
-     * Generate a hash for a given string. The first argument
-     * is a string to be hashed, i.e., Pazzw0rd123 and the second
-     * argument is a salt, i.e., E1F53135E559C253
-     */
-    const hashedPassword = await bcryptjs.hash(password, salt);
+      /**
+       * Generate a hash for a given string. The first argument
+       * is a string to be hashed, i.e., Pazzw0rd123 and the second
+       * argument is a salt, i.e., E1F53135E559C253
+       */
+      const hashedPassword = await bcryptjs.hash(password, salt);
 
-    user = await prisma.user.create({
-      data: { username, role, email, password: hashedPassword },
-      select: {
-        // Select only the fields you want to return
-        id: true,
-        username: true,
-        email: true,
-        role: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+      user = await prisma.user.create({
+        data: { username, role, email, password: hashedPassword },
+        select: {
+          // Select only the fields you want to return
+          id: true,
+          username: true,
+          email: true,
+          role: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      });
 
-    return res.status(201).json({
-      message: "User successfully registered",
-      data: user,
-    });
-  }
- } catch (err) {
+      return res.status(201).json({
+        message: "User successfully registered",
+        data: user,
+      });
+    }
+  } catch (err) {
     return res.status(500).json({
       message: err.message,
     });
   }
-      
+
 
 };
 
@@ -63,9 +63,9 @@ const login = async (req, res) => {
 
     const user = await prisma.user.findUnique({ where: { username } });
 
-   
 
-    if (!user){
+
+    if (!user) {
       return res.status(401).json({ message: "Invalid username" });
     }
 
@@ -103,18 +103,18 @@ const login = async (req, res) => {
      * the authenticated user's id and name, the second argument is the secret
      * or public/private key, and the third argument is the lifetime of the JWT
      */
-  const token = jwt.sign(
-  {
-    id: user.id,
-    username: user.username,
-    role: user.role,
-    enabled: user.enabled
-  },
-  process.env.JWT_SECRET, // <-- make sure this isn't just `JWT_SECRET`
-  { expiresIn: process.env.JWT_LIFETIME }
-);
-     if(!user.enabled){
-      return res.status(403).json({ message: "Denied: Your account is disabled"});
+    const token = jwt.sign(
+      {
+        id: user.id,
+        username: user.username,
+        role: user.role,
+        enabled: user.enabled
+      },
+      process.env.JWT_SECRET, // <-- make sure this isn't just `JWT_SECRET`
+      { expiresIn: process.env.JWT_LIFETIME }
+    );
+    if (!user.enabled) {
+      return res.status(403).json({ message: "Denied: Your account is disabled" });
     }
 
     await prisma.user.update({

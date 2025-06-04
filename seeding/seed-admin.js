@@ -1,7 +1,7 @@
 import fs from 'fs';
 import bcrypt from 'bcryptjs';
-import prisma from '../prisma/client.js'; 
-import { validatePostUser } from '../middleware/validation/user.js'; 
+import prisma from '../prisma/client.js';
+import { validatePostUser } from '../middleware/validation/user.js';
 
 const validateUser = (user) => {
   const req = { body: user };
@@ -14,12 +14,12 @@ const validateUser = (user) => {
     }),
   };
 
-  validatePostUser(req, res, () => {}); 
+  validatePostUser(req, res, () => { });
 };
 
 const seedAdminUsers = async () => {
   try {
-
+    await prisma.user.deleteMany();
     const adminUsersData = [
       {
         username: "johnDoe",
@@ -74,7 +74,7 @@ const seedAdminUsers = async () => {
     console.log('Admin users successfully seeded');
   } catch (err) {
     console.log('Seeding failed:', err.message);
-  } 
+  }
 };
 
 seedAdminUsers();

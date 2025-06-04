@@ -10,7 +10,8 @@
     "prisma:reset": "npx prisma migrate reset --force",
     "seed-normal": "node seeding/seed-normal.js",
     "seed-admin": "node seeding/seed-admin.js",
-    "seed-super-admin": "node seeding/seed-super-admin-github.js"
+    "seed-super-admin": "node seeding/seed-super-admin-github.js",
+    "user-test": "node seeding/seed-admin.js && mocha tests/01-user.test.js"
   },
   "type": "module",
   "keywords": [],
@@ -29,8 +30,13 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "chai": "^5.2.0",
+    "chai-http": "^5.1.2",
+    "mocha": "^11.5.0",
     "nodemon": "^3.1.10",
-    "prisma": "^6.6.0"
+    "prisma": "^6.6.0",
+    "sinon": "^20.0.0",
+    "supertest": "^7.1.1"
   },
   "repository": {
     "type": "git",

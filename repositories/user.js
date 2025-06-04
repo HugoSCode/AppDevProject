@@ -5,12 +5,17 @@ class UserRepository {
     return await prisma.user.create({ data });
   }
 
-  async findAll(filters = {}, sortBy="id", sortOrder="asc") {
-    // Create an empty query object
+ async findAll(filters = {}, options = {}) {
+    const {
+      take = 25,
+      skip = 0,
+      orderBy= {id: 'asc'}
+    } = options;
+
     const query = {
-      orderBy: {
-        [sortBy]: sortOrder,
-      }
+      take,
+      skip,
+      orderBy,
     };
 
     if (Object.keys(filters).length > 0) {
@@ -18,18 +23,18 @@ class UserRepository {
       // Loop through the filters and apply them dynamically
       for (const [key, value] of Object.entries(filters)) {
         if (value) {
-          if (key === 'email' || key === 'username'){
+          if (key === 'email' || key === 'username') {
             query.where[key] = { contains: value };
           }
-          else if (key === 'role'){
-            query.where[key]={equals: value };
+          else if (key === 'role') {
+            query.where[key] = { equals: value };
           }
         }
       }
     }
 
     return await prisma.user.findMany(query);
-}
+  }
 
   async findById(id) {
     return await prisma.user.findUnique({

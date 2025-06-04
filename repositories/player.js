@@ -15,7 +15,7 @@ class PlayerRepository {
         [sortBy]: sortOrder,
       },
     };
-  
+
     if (Object.keys(filters).length > 0) {
       query.where = {};
       for (const [key, value] of Object.entries(filters)) {
@@ -24,7 +24,7 @@ class PlayerRepository {
             query.where[key] = { contains: value };
           }
           else if (key === 'age') {
-            query.where.age = { equals: Number(value) }; 
+            query.where.age = { equals: Number(value) };
           }
           else if (key === 'position') {
             query.where[key] = { equals: value };
@@ -32,22 +32,22 @@ class PlayerRepository {
         }
       }
     }
-  
+
     return await prisma.player.findMany(query);
   }
-  
+
 
   // Get a single player by ID
   async findById(id) {
     return await prisma.player.findUnique({
-      where: { id},
+      where: { id },
     });
   }
 
   // Update a player by ID
   async update(id, data) {
     return await prisma.player.update({
-      where: { id},
+      where: { id },
       data,
     });
   }
@@ -55,7 +55,7 @@ class PlayerRepository {
   // Delete a player by ID
   async delete(id) {
     return await prisma.player.delete({
-      where: { id: id},
+      where: { id: id },
     });
   }
 }

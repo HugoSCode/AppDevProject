@@ -17,7 +17,7 @@ class TeamRepository {
   }
 
   // Get all teams
-  async findAll(filters = {}, sortBy="id", sortOrder="asc") {
+  async findAll(filters = {}, sortBy = "id", sortOrder = "asc") {
     // Create an empty query object
     const query = {
       orderBy: {
@@ -36,7 +36,7 @@ class TeamRepository {
     }
 
     return await prisma.team.findMany(query);
-}
+  }
 
   // Get a team by ID
   async findById(id) {
