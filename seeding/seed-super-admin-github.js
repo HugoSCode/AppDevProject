@@ -3,7 +3,6 @@ import prisma from "../prisma/client.js";
 import { validatePostUser } from "../middleware/validation/user.js";
 import bcrypt from "bcryptjs";
 
-await prisma.user.deleteMany();
 const validateUser = (user) => {
   const req = { body: user };
   const res = {

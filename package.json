@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js",
+    "dev": "nodemon server.js",
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:reset": "npx prisma migrate reset --force",
     "seed-normal": "node seeding/seed-normal.js",
     "seed-admin": "node seeding/seed-admin.js",
     "seed-super-admin": "node seeding/seed-super-admin-github.js",
-    "user-test": "node seeding/seed-admin.js && mocha tests/01-user.test.js"
+    "user-test": "node seeding/seed-admin.js && node seeding/seed-super-admin-github.js && node seeding/seed-normal.js && mocha tests/01-user.test.js"
   },
   "type": "module",
   "keywords": [],
