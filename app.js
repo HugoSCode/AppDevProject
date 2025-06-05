@@ -10,6 +10,8 @@ import indexRoutes from "./routes/index.js";
 import userRoutes from "./routes/v1/user.js";
 import teamRoutes from "./routes/v1/team.js";
 import playerRoutes from "./routes/v1/player.js";
+import matchRoutes from "./routes/v1/match.js";
+import leagueRoutes from "./routes/v1/league.js";
 import { isContentTypeApplicationJSON } from "./middleware/utils.js";
 import authRoutes from "./routes/v1/auth.js";
 import jwtAuth from "./middleware/jwtAuth.js";
@@ -19,8 +21,6 @@ import jwtAuth from "./middleware/jwtAuth.js";
 
 // Create an Express application
 const app = express();
-
-
 
 
 app.use(express.urlencoded({ extended: false })); // To parse the incoming requests with urlencoded payloads. For example, form data
@@ -55,6 +55,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/api/v1/users", jwtAuth, userRoutes);
 app.use("/api/v1/teams", jwtAuth, teamRoutes);
 app.use("/api/v1/players", jwtAuth, playerRoutes);
+app.use("/api/v1/matches", jwtAuth, matchRoutes);
+app.use("/api/v1/leagues", jwtAuth, leagueRoutes);
 app.use("/api/v1/auth",  authRoutes);
 
 

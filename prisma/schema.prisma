@@ -57,7 +57,7 @@ model Player {
 model Match {
   id         String          @id @default(uuid())
   date       DateTime
-  location   String
+  stadium   String
   homeTeam   Team            @relation("HomeTeam", fields: [homeTeamId], references: [id])
   homeTeamId String
   awayTeam   Team            @relation("AwayTeam", fields: [awayTeamId], references: [id])

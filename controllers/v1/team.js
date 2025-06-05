@@ -1,4 +1,3 @@
-// src/controllers/teamController.js
 import teamRepository from "../../repositories/team.js";
 
 const createTeam = async (req, res) => {

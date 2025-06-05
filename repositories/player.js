@@ -1,15 +1,11 @@
-// src/repositories/playerRepository.js
 import prisma from "../prisma/client.js";
 
 class PlayerRepository {
-  // Create a new player
   async create(data) {
     return await prisma.player.create({ data });
   }
 
-  // Get all players
   async findAll(filters = {}, sortBy = "id", sortOrder = "asc") {
-    // Create an empty query object
     const query = {
       orderBy: {
         [sortBy]: sortOrder,
@@ -37,14 +33,12 @@ class PlayerRepository {
   }
 
 
-  // Get a single player by ID
   async findById(id) {
     return await prisma.player.findUnique({
       where: { id },
     });
   }
 
-  // Update a player by ID
   async update(id, data) {
     return await prisma.player.update({
       where: { id },
@@ -52,7 +46,6 @@ class PlayerRepository {
     });
   }
 
-  // Delete a player by ID
   async delete(id) {
     return await prisma.player.delete({
       where: { id: id },

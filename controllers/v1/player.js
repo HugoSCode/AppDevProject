@@ -1,6 +1,5 @@
 import playerRepository from "../../repositories/player.js";
 
-// Create a player
 const createPlayer = async (req, res) => {
   try {
     if (req.user.role==='NORMAL'){
@@ -16,7 +15,6 @@ const createPlayer = async (req, res) => {
   }
 };
 
-// Get all players
 const getPlayers = async (req, res) => {
   try {
     const filters = {
@@ -40,7 +38,7 @@ const getPlayers = async (req, res) => {
     return res.status(500).json({ message: err.message });
   }
 };
-// Get a single player
+
 const getPlayer = async (req, res) => {
   try {
     const player = await playerRepository.findById(req.params.id);
@@ -55,7 +53,6 @@ const getPlayer = async (req, res) => {
   }
 };
 
-// Update a player
 const updatePlayer = async (req, res) => {
   try {
     if (req.user.role==='NORMAL'){
@@ -78,7 +75,6 @@ const updatePlayer = async (req, res) => {
   }
 };
 
-// Delete a player
 const deletePlayer = async (req, res) => {
   try {
     if (req.user.role==='NORMAL'){
