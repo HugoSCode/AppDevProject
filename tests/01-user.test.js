@@ -108,6 +108,24 @@ describe('User API Basic CRUD Tests', () => {
 
       expect(res.body.message).to.equal('No user with the id: 99999 found');
     });
+
+    //it('should return 429 Too Many Requests after 20 requests within 2 minutes', async () => {
+      //const maxRequests = 10;
+      //const userId = testUserId 
+//
+      //for (let i = 0; i < maxRequests; i++) {
+        //const res = await request(app)
+          //.get(`/api/v1/users/${userId}`)
+          //.set('Authorization', `Bearer ${adminAuthToken}`);
+      //}
+//    
+      //// The 21st request should be blocked by rate limiter
+      //const res = await request(app)
+        //.get(`/api/v1/users/${userId}`)
+        //.set('Authorization', `Bearer ${adminAuthToken}`);
+    //console.log(res.body);
+      //expect(res.body.message).to.equal('Too many requests, please try again later.');
+    //});
   });
 
   describe('PUT /api/v1/users/:id - Update User', () => {

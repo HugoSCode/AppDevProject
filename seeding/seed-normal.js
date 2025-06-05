@@ -4,6 +4,10 @@ import bcrypt from 'bcryptjs';
 import prisma from '../prisma/client.js'; // Adjust path if needed
 import { validatePostUser } from '../middleware/validation/user.js';
 
+
+// "username": "john_doe",
+// "password": "password123"
+
 const validateUser = (user) => {
   const req = { body: user };
   const res = {

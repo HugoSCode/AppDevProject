@@ -51,6 +51,13 @@ router.delete("/:id", deletePlayer);
  *           format: uuid
  *           nullable: true
  *           example: "123e4567-e89b-12d3-a456-426614174000"
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   security:
+ *     - BearerAuth: []
  */
 
 
@@ -63,6 +70,8 @@ router.delete("/:id", deletePlayer);
  *     summary: Create a new player
  *     tags:
  *       - Player
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -113,6 +122,8 @@ router.delete("/:id", deletePlayer);
  *     summary: Get all players
  *     tags:
  *       - Player
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: name
@@ -192,6 +203,8 @@ router.delete("/:id", deletePlayer);
  *     summary: Get an player by id
  *     tags:
  *       - Player
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -235,6 +248,8 @@ router.delete("/:id", deletePlayer);
  *     summary: Update an player by id
  *     tags:
  *       - Player
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -290,7 +305,9 @@ router.delete("/:id", deletePlayer);
  *     summary: Delete an player by id
  *     tags:
  *       - Player
- *     parameters:
+ *     security:
+ *       - BearerAuth: []
+ *     parameters::
  *       - in: path
  *         name: id
  *         required: true

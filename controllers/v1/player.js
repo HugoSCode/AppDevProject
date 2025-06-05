@@ -3,6 +3,9 @@ import playerRepository from "../../repositories/player.js";
 // Create a player
 const createPlayer = async (req, res) => {
   try {
+    if (req.user.role==='NORMAL'){
+      return res.status(403).json({message: "Normal users are only permitted to get all players or get players by id"});
+    }
     const newPlayer = await playerRepository.create(req.body);
     return res.status(201).json({
       message: "Player successfully created",
@@ -55,6 +58,9 @@ const getPlayer = async (req, res) => {
 // Update a player
 const updatePlayer = async (req, res) => {
   try {
+    if (req.user.role==='NORMAL'){
+      return res.status(403).json({message: "Normal users are only permitted to get all players or get players by id"});
+    }
     const player = await playerRepository.findById(req.params.id);
     if (!player) {
       return res.status(404).json({
@@ -75,6 +81,9 @@ const updatePlayer = async (req, res) => {
 // Delete a player
 const deletePlayer = async (req, res) => {
   try {
+    if (req.user.role==='NORMAL'){
+      return res.status(403).json({message: "Normal users are only permitted to get all players or get players by id"});
+    }
     const player = await playerRepository.findById(req.params.id);
     if (!player) {
       return res.status(404).json({

@@ -53,8 +53,8 @@ app.use(isContentTypeApplicationJSON);
 app.use("/", indexRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/api/v1/users", jwtAuth, userRoutes);
-app.use("/api/v1/teams", teamRoutes);
-app.use("/api/v1/players", playerRoutes);
+app.use("/api/v1/teams", jwtAuth, teamRoutes);
+app.use("/api/v1/players", jwtAuth, playerRoutes);
 app.use("/api/v1/auth",  authRoutes);
 
 

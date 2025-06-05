@@ -3,6 +3,9 @@ import teamRepository from "../../repositories/team.js";
 
 const createTeam = async (req, res) => {
   try {
+    if (req.user.role==='NORMAL'){
+      return res.status(403).json({message: "Normal users are only permitted to get all teams or get teams by id"});
+    }
     const newTeam = await teamRepository.create(req.body);
     return res.status(201).json({
       message: "Team successfully created",
@@ -53,6 +56,9 @@ const getTeam = async (req, res) => {
 
 const updateTeam = async (req, res) => {
   try {
+    if (req.user.role==='NORMAL'){
+      return res.status(403).json({message: "Normal users are only permitted to get all teams or get teams by id"});
+    }
     const existingTeam = await teamRepository.findById(req.params.id);
     if (!existingTeam) {
       return res.status(404).json({
@@ -72,6 +78,9 @@ const updateTeam = async (req, res) => {
 
 const deleteTeam = async (req, res) => {
   try {
+    if (req.user.role==='NORMAL'){
+      return res.status(403).json({message: "Normal users are only permitted to get all teams or get teams by id"});
+    }
     const team = await teamRepository.findById(req.params.id);
     if (!team) {
       return res.status(404).json({

@@ -46,6 +46,13 @@ router.delete("/:id", deleteTeam);
  *             type: string
  *             format: uuid
  *           example: ["123e4567-e89b-12d3-a456-426614174001", "223e4567-e89b-12d3-a456-426614174002"]
+ *   securitySchemes:
+ *     BearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   security:
+ *     - BearerAuth: []
  */
 
 
@@ -58,6 +65,8 @@ router.delete("/:id", deleteTeam);
  *     summary: Create a new team
  *     tags:
  *       - Team
+ *     security:
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -109,6 +118,8 @@ router.post("/", createTeam);
  *     summary: Get all teams
  *     tags:
  *       - Team
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: query
  *         name: name
@@ -181,6 +192,8 @@ router.post("/", createTeam);
  *     summary: Get an team by id
  *     tags:
  *       - Team
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -224,6 +237,8 @@ router.post("/", createTeam);
  *     summary: Update an team by id
  *     tags:
  *       - Team
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -279,6 +294,8 @@ router.post("/", createTeam);
  *     summary: Delete an team by id
  *     tags:
  *       - Team
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

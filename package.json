@@ -11,6 +11,7 @@
     "seed-normal": "node seeding/seed-normal.js",
     "seed-admin": "node seeding/seed-admin.js",
     "seed-super-admin": "node seeding/seed-super-admin-github.js",
+    "seed-prem-league": "node seeding/seedPremTeams.js && node seeding/seedPremPlayers",
     "user-test": "node seeding/seed-admin.js && node seeding/seed-super-admin-github.js && node seeding/seed-normal.js && mocha tests/01-user.test.js"
   },
   "type": "module",

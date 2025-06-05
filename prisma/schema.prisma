@@ -144,7 +144,7 @@ enum Position {
   GOALKEEPER
   DEFENDER
   MIDFIELDER
-  ATTACKER
+  FORWARD
 }
 
 enum TransferType {
