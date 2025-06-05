@@ -146,6 +146,7 @@ router.delete("/:id", deleteUser);
  *         required: false
  *         schema:
  *           type: string
+ *           enum: [NORMAL, ADMIN, SUPER_ADMIN]
  *         description: Filter users by role  
  *       - in: query
  *         name: enabled

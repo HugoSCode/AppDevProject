@@ -148,6 +148,7 @@ router.delete("/:id", deletePlayer);
  *         required: false
  *         schema:
  *           type: string
+ *           enum: [GOALKEEPER, DEFENDER, MIDFIELDER, FORWARD]
  *         description: Filter players by position
  *       - in: query
  *         name: sortBy

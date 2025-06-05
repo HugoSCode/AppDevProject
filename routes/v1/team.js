@@ -56,8 +56,6 @@ router.delete("/:id", deleteTeam);
  */
 
 
-
-
 /**
  * @swagger
  * /api/v1/teams:
