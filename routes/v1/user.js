@@ -13,11 +13,13 @@ import {
   validatePutUser,
 }from "../../middleware/validation/user.js"
 
+import { reqLimit } from "../../middleware/limitRequests.js";
+
 const router = express.Router();
 
 router.post("/", validatePostUser, createUser);
-router.get("/", getUsers);
-router.get("/:id", getUser);
+router.get("/", reqLimit, getUsers);
+router.get("/:id", reqLimit, getUser );
 router.put("/:id", validatePutUser, updateUser);
 router.delete("/:id", deleteUser);
 
@@ -144,19 +146,25 @@ router.delete("/:id", deleteUser);
  *         required: false
  *         schema:
  *           type: string
- *         description: Filter users by role
+ *         description: Filter users by role  
+ *       - in: query
+ *         name: enabled
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter users by enabled or disabled
  *       - in: query
  *         name: sortBy
  *         schema:
  *           type: string
- *           enum: [id, username, email]
- *         description: Field to sort the institutions by (default is 'id')
+ *           enum: [id, username, email, role, enabled]
+ *         description: Field to sort the users by (default is 'id')
  *       - in: query
  *         name: sortOrder
  *         schema:
  *           type: string
  *           enum: [asc, desc]
- *         description: Order to sort the institutions by (default is 'asc')
+ *         description: Order to sort the users by (default is 'asc')
  *       - in: query
  *         name: amount
  *         schema:

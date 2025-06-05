@@ -20,20 +20,27 @@ class UserRepository {
 
     if (Object.keys(filters).length > 0) {
       query.where = {};
-      // Loop through the filters and apply them dynamically
+      
       for (const [key, value] of Object.entries(filters)) {
-        if (value) {
+        if (value !== undefined && value !== null && value !== '') {
           if (key === 'email' || key === 'username') {
             query.where[key] = { contains: value };
-          }
-          else if (key === 'role') {
+          } else if (key === 'enabled') {
+            const boolValue = value === 'true' || value === true; //converts enabled value back to an actual boolean
+            query.where[key] = { equals: boolValue };
+          } else if (key === 'role') {
             query.where[key] = { equals: value };
           }
         }
       }
+    } else {
+      query.where = undefined;
     }
-
+    
+    
     return await prisma.user.findMany(query);
+    
+    
   }
 
   async findById(id) {

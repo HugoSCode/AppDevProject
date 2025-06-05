@@ -31,6 +31,7 @@ const getUsers = async (req, res) => {
       username: req.query.username || undefined,
       email: req.query.email || undefined,
       role: req.query.role || undefined,
+      enabled: req.query.enabled || undefined
     };
 
     let users;
@@ -73,8 +74,6 @@ const getUsers = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-
-  
   try {
     if (req.user.role === "NORMAL" && req.params.id != req.user.id) {
       return res.status(403).json({ message: "Normal users are not authorised to search details of other users" });
