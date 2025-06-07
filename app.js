@@ -15,6 +15,10 @@ import leagueRoutes from "./routes/v1/league.js";
 import { isContentTypeApplicationJSON } from "./middleware/utils.js";
 import authRoutes from "./routes/v1/auth.js";
 import jwtAuth from "./middleware/jwtAuth.js";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 
 
@@ -22,6 +26,8 @@ import jwtAuth from "./middleware/jwtAuth.js";
 // Create an Express application
 const app = express();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 app.use(express.urlencoded({ extended: false })); // To parse the incoming requests with urlencoded payloads. For example, form data
 // Use the routes module
@@ -46,7 +52,45 @@ const swaggerOptions = {
   apis: ["./routes/v1/*.js"],
 };
 
-// This should be declared under - const swaggerOptions = { ... };
+app.disable('x-powered-by');
+
+app.use((req, res, next) => {
+  const logs = [];
+
+  // Capture the original send method
+  const originalSend = res.send;
+
+  // Intercept response body
+  res.send = function (body) {
+    logs.push(typeof body === 'string' ? body : JSON.stringify(body));
+    res.send = originalSend;
+    return res.send(body);
+  };
+
+  // When response finishes, log request and response
+  res.on('finish', () => {
+    const log = `
+[${new Date().toISOString()}]
+Request:
+  ${req.method} ${req.originalUrl}
+  Headers: ${JSON.stringify(req.headers)}
+  Body: ${JSON.stringify(req.body)}
+
+Response:
+  Status: ${res.statusCode}
+  Body: ${logs.join('')}
+
+------------------------------
+`;
+
+    fs.appendFile(path.join(__dirname, 'combined.log'), log, err => {
+      if (err) console.error('Failed to write log:', err);
+    });
+  });
+
+  next();
+});
+
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use(isContentTypeApplicationJSON);
 

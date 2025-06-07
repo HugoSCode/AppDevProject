@@ -13,15 +13,15 @@ import {
   validatePutUser,
 }from "../../middleware/validation/user.js"
 
-import { reqLimit } from "../../middleware/limitRequests.js";
+import { getReqLimit, createReqLimit } from "../../middleware/limitRequests.js";
 
 const router = express.Router();
 
-router.post("/", validatePostUser, createUser);
-router.get("/", reqLimit, getUsers);
-router.get("/:id", reqLimit, getUser );
-router.put("/:id", validatePutUser, updateUser);
-router.delete("/:id", deleteUser);
+router.post("/", createReqLimit, validatePostUser, createUser);
+router.get("/", getReqLimit, getUsers);
+router.get("/:id", getReqLimit, getUser );
+router.put("/:id", createReqLimit, validatePutUser, updateUser);
+router.delete("/:id", createReqLimit, deleteUser);
 
 /**
  * @swagger
