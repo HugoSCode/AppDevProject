@@ -11,6 +11,7 @@ import userRoutes from "./routes/v1/user.js";
 import teamRoutes from "./routes/v1/team.js";
 import playerRoutes from "./routes/v1/player.js";
 import matchRoutes from "./routes/v1/match.js";
+import matchEventRoutes from "./routes/v1/matchEvent.js";
 import leagueRoutes from "./routes/v1/league.js";
 import { isContentTypeApplicationJSON } from "./middleware/utils.js";
 import authRoutes from "./routes/v1/auth.js";
@@ -54,6 +55,7 @@ const swaggerOptions = {
 
 app.disable('x-powered-by');
 
+//Log to combined log file
 app.use((req, res, next) => {
   const logs = [];
 
@@ -100,6 +102,7 @@ app.use("/api/v1/users", jwtAuth, userRoutes);
 app.use("/api/v1/teams", jwtAuth, teamRoutes);
 app.use("/api/v1/players", jwtAuth, playerRoutes);
 app.use("/api/v1/matches", jwtAuth, matchRoutes);
+app.use("/api/v1/matchEvent", jwtAuth, matchEventRoutes);
 app.use("/api/v1/leagues", jwtAuth, leagueRoutes);
 app.use("/api/v1/auth",  authRoutes);
 
