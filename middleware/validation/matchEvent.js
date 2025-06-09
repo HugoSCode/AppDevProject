@@ -1,6 +1,5 @@
 import Joi from "joi";
 
-import Joi from "joi";
 
 const validatePostMatchEvent = (req, res, next) => {
   const matchEventSchema = Joi.object({

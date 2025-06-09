@@ -12,7 +12,8 @@
     "seed-admin": "node seeding/seed-admin.js",
     "seed-super-admin": "node seeding/seed-super-admin-github.js",
     "seed-prem-league": "node seeding/seedPremTeams.js && node seeding/seedPremPlayers && node seeding/seedMatch && node seeding/seedMatchEvent",
-    "user-test": "node seeding/seed-admin.js && node seeding/seed-super-admin-github.js && node seeding/seed-normal.js && mocha tests/01-user.test.js"
+    "user-test": "node seeding/seed-admin.js && node seeding/seed-super-admin-github.js && node seeding/seed-normal.js && mocha tests/01-user.test.js",
+    "base-test": "mocha tests/02-player.test.js"
   },
   "type": "module",
   "keywords": [],

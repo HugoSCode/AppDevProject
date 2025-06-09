@@ -49,13 +49,7 @@ class MatchEventRepository {
   async update(id, data) {
     return await prisma.matchEvent.update({
       where: { id },
-      data: {
-        type: data.type,
-        minute: data.minute,
-        details: data.details,
-        match: data.matchId ? { connect: { id: data.matchId } } : undefined,
-        player: data.playerId ? { connect: { id: data.playerId } } : { disconnect: true },
-      },
+      data,
     });
   }
 

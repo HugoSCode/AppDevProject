@@ -53,13 +53,7 @@ class MatchRepository {
   async update(id, data) {
     return await prisma.match.update({
       where: { id },
-      data: {
-        date: data.date ? new Date(data.date) : undefined,
-        stadium: data.stadium,
-        homeTeam: data.homeTeamId ? { connect: { id: data.homeTeamId } } : undefined,
-        awayTeam: data.awayTeamId ? { connect: { id: data.awayTeamId } } : undefined,
-        league: data.leagueId ? { connect: { id: data.leagueId } } : { disconnect: true },
-      },
+      data,
     });
   }
 

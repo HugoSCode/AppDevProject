@@ -1,5 +1,5 @@
 import playerRepository from "../../repositories/player.js";
-
+import { queryOptions } from "../../utils/pagination.js";
 const createPlayer = async (req, res) => {
   try {
     if (req.user.role==='NORMAL'){
@@ -17,6 +17,7 @@ const createPlayer = async (req, res) => {
 
 const getPlayers = async (req, res) => {
   try {
+    const options =queryOptions(req.query);
     const filters = {
       name: req.query.name || undefined,
       age: req.query.age || undefined,
@@ -24,10 +25,11 @@ const getPlayers = async (req, res) => {
       position: req.query.position || undefined
     };
 
-    const sortBy = req.query.sortBy || "id";
-    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
-
-    const players = await playerRepository.findAll(filters, sortBy, sortOrder);
+  
+    const players= await playerRepository.findAll(
+        filters,
+        options
+      );
 
     if (!players || players.length === 0) {
       return res.status(404).json({ message: "No players found" });

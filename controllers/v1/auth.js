@@ -83,7 +83,6 @@ const login = async (req, res) => {
      * hash, i.e., user's hashed password
      */
     const isPasswordCorrect = await bcryptjs.compare(password, user.password);
-    console.log(password);
     if (!isPasswordCorrect) {
       await prisma.user.update({
         where: { username },

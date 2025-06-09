@@ -1,3 +1,4 @@
+//Handles pagination and sorting for the getAll operations
 function queryOptions(query) {
   const paginationDefault = { amount: 25, page: 1 };
 

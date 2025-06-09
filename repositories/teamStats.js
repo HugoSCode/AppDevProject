@@ -1,17 +1,16 @@
-// src/repositories/teamRepository.js
+// src/repositories/teamStatsRepository.js
 import prisma from "../prisma/client.js";
 
-class TeamRepository {
-  // Create a new team with connected players
+class TeamStatsRepository {
   async create(data) {
-    return await prisma.team.create({
+    return await prisma.teamStats.create({
       data: {
-        name: data.name,
-        coach: data.coach,
-        stadium: data.stadium,
-        players: {
-          connect: data.playerIds?.map(id => ({ id })),
-        },
+        team: { connect: { id: data.teamId } },
+        league: { connect: { id: data.leagueId } },
+        wins: data.wins,
+        losses: data.losses,
+        draws: data.draws,
+        points: data.points,
       },
     });
   }
@@ -25,6 +24,7 @@ class TeamRepository {
 
     if (Object.keys(filters).length > 0) {
       query.where = {};
+      // Loop through the filters and apply them dynamically
       for (const [key, value] of Object.entries(filters)) {
         if (value) {
           query.where[key] = { contains: value };
@@ -32,27 +32,27 @@ class TeamRepository {
       }
     }
 
-    return await prisma.team.findMany(query);
+    return await prisma.teamStats.findMany(query);
   }
 
   async findById(id) {
-    return await prisma.team.findUnique({
+    return await prisma.teamStats.findUnique({
       where: { id },
     });
   }
 
   async update(id, data) {
-    return await prisma.team.update({
+    return await prisma.teamStats.update({
       where: { id },
       data,
     });
   }
 
   async delete(id) {
-    return await prisma.team.delete({
+    return await prisma.teamStats.delete({
       where: { id },
     });
   }
 }
 
-export default new TeamRepository();
+export default new TeamStatsRepository();

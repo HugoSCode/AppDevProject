@@ -46,10 +46,7 @@ class LeagueRepository {
   async update(id, data) {
     return await prisma.league.update({
       where: { id },
-      data: {
-        name: data.name,
-        country: data.country,
-      },
+      data,
     });
   }
 

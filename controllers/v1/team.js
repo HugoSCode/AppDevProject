@@ -1,5 +1,5 @@
 import teamRepository from "../../repositories/team.js";
-
+import { queryOptions } from "../../utils/pagination.js";
 const createTeam = async (req, res) => {
   try {
     if (req.user.role==='NORMAL'){
@@ -23,10 +23,8 @@ const getTeams = async (req, res) => {
       stadium: req.query.stadium || undefined
     };
 
-    const sortBy = req.query.sortBy || "id";
-    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
-
-    const teams = await teamRepository.findAll(filters, sortBy, sortOrder);
+    const options =queryOptions(req.query);
+    const teams = await teamRepository.findAll(filters, options);
 
     if (!teams || teams.length === 0) {
       return res.status(404).json({ message: "No teams found" });

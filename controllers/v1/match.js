@@ -1,5 +1,5 @@
 import matchRepository from "../../repositories/match.js";
-
+import { queryOptions } from "../../utils/pagination.js";
 const createMatch = async (req, res) => {
   try {
     if (req.user.role === "NORMAL") {
@@ -20,14 +20,12 @@ const createMatch = async (req, res) => {
 
 const getMatches = async (req, res) => {
   try {
+    const options =queryOptions(req.query);
     const filters = {
       stadium: req.query.stadium || undefined,
     };
-
-    const sortBy = req.query.sortBy || "id";
-    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
-
-    const matches = await matchRepository.findAll(filters, sortBy, sortOrder);
+ 
+    const matches = await matchRepository.findAll(filters, options);
 
     if (!matches || matches.length === 0) {
       return res.status(404).json({ message: "No matches found" });
