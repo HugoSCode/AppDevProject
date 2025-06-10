@@ -50,7 +50,7 @@ model Player {
   teamId      String?
   events      MatchEvent[]
   injuries    Injury[]
-  stats       PlayerStatistic[]
+  stats       PlayerStatistics[]
   transfers   Transfer[]
 }
 
@@ -65,7 +65,7 @@ model Match {
   league     League?         @relation(fields: [leagueId], references: [id])
   leagueId   String?
   events     MatchEvent[]
-  stats      PlayerStatistic[]
+  stats      PlayerStatistics[]
 }
 
 model MatchEvent {
@@ -121,7 +121,7 @@ model Injury {
   duration   Int
 }
 
-model PlayerStatistic {
+model PlayerStatistics {
   id         String       @id @default(uuid())
   player     Player       @relation(fields: [playerId], references: [id])
   playerId   String

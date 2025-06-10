@@ -1,6 +1,5 @@
 import Joi from "joi";
 
-// Enum for positions, use your actual position enum values
 const validPositions = ['GOALKEEPER', 'DEFENDER', 'MIDFIELDER', 'FORWARD'];
 
 const validatePostPlayer = (req, res, next) => {
@@ -81,7 +80,7 @@ const validatePutPlayer = (req, res, next) => {
       .optional()
       .messages({
         "number.base": "Age must be a number",
-        "number.min": "Age must be at least 6 years old",
+        "number.min": "Age must be at least 10 years old",
         "number.max": "Age must be less than 120 years old",
       }),
 

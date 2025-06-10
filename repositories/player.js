@@ -37,7 +37,6 @@ class PlayerRepository {
               name: {
                 contains: value
               }
-
             };
           }
         }

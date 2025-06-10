@@ -15,6 +15,8 @@ import matchEventRoutes from "./routes/v1/matchEvent.js";
 import leagueRoutes from "./routes/v1/league.js";
 import teamStatsRoutes from "./routes/v1/teamStats.js";
 import transferRoutes from "./routes/v1/transfer.js";
+import playerStatisticsRoutes from "./routes/v1/playerStatistics.js";
+import injuryRoutes from "./routes/v1/injury.js";
 import { isContentTypeApplicationJSON } from "./middleware/utils.js";
 import authRoutes from "./routes/v1/auth.js";
 import jwtAuth from "./middleware/jwtAuth.js";
@@ -26,7 +28,6 @@ import { dirname } from 'path';
 
 
 
-// Create an Express application
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -106,8 +107,10 @@ app.use("/api/v1/players", jwtAuth, playerRoutes);
 app.use("/api/v1/matches", jwtAuth, matchRoutes);
 app.use("/api/v1/matchEvent", jwtAuth, matchEventRoutes);
 app.use("/api/v1/leagues", jwtAuth, leagueRoutes);
-app.use('/api/v1/teamstats', jwtAuth, teamStatsRoutes);
+app.use('/api/v1/teamStats', jwtAuth, teamStatsRoutes);
 app.use('/api/v1/transfers', jwtAuth, transferRoutes);
+app.use('/api/v1/playerStatistics', jwtAuth, playerStatisticsRoutes);
+app.use('/api/v1/injuries', jwtAuth, injuryRoutes);
 app.use("/api/v1/auth",  authRoutes);
 
 
