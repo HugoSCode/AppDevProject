@@ -16,12 +16,19 @@ class TeamRepository {
     });
   }
 
-  async findAll(filters = {}, sortBy = "id", sortOrder = "asc") {
+  async findAll(filters = {}, options = {}) {
+    const {
+      take = 25,
+      skip = 0,
+      orderBy= {id: 'asc'}
+    } = options;
+
     const query = {
-      orderBy: {
-        [sortBy]: sortOrder,
-      }
+      take,
+      skip,
+      orderBy,
     };
+
 
     if (Object.keys(filters).length > 0) {
       query.where = {};

@@ -21,7 +21,9 @@ const createMatchEvent = async (req, res) => {
 const getMatchEvents = async (req, res) => {
   try {
     const filters = {
-      stadium: req.query.stadium || undefined,
+      type: req.query.type || undefined,
+      minute: req.query.minute || undefined,
+      matchId: req.query.matchId || undefined,
     };
 
     const options =queryOptions(req.query);

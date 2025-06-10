@@ -10,16 +10,19 @@ class LeagueRepository {
     });
   }
 
-  async findAll(filters = {}, sortBy = "name", sortOrder = "asc") {
+  async findAll(filters = {}, options = {}) {
+    const {
+      take = 25,
+      skip = 0,
+      orderBy= {id: 'asc'}
+    } = options;
+
     const query = {
-      orderBy: {
-        [sortBy]: sortOrder,
-      },
-      include: {
-        matches: true,
-        standings: true,
-      },
+      take,
+      skip,
+      orderBy,
     };
+
 
     if (Object.keys(filters).length > 0) {
       query.where = {};

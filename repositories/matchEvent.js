@@ -13,28 +13,42 @@ class MatchEventRepository {
     });
   }
 
-  async findAll(filters = {}, sortBy = "minute", sortOrder = "asc") {
-    const query = {
-      orderBy: {
-        [sortBy]: sortOrder,
-      },
-      include: {
-        match: true,
-        player: true,
-      },
-    };
+  async findAll(filters = {}, options = {}) {
+  const {
+    take = 25,
+    skip = 0,
+    orderBy = { id: 'asc' }
+  } = options;
 
-    if (Object.keys(filters).length > 0) {
-      query.where = {};
-      for (const [key, value] of Object.entries(filters)) {
-        if (value) {
-          query.where[key] = { contains: value };
+  const query = {
+    take,
+    skip,
+    orderBy,
+    include: {
+      match: true,
+      player: true,
+    }
+  };
+
+  if (Object.keys(filters).length > 0) {
+    query.where = {};
+
+    for (const [key, value] of Object.entries(filters)) {
+      if (value !== undefined && value !== null && value !== '') {
+        if (key === 'type') {
+          query.where.type = { contains: value };
+        } else if (key === 'minute') {
+          query.where.minute = { equals: Number(value) };
+        } else if (key === 'matchId') {
+          query.where.matchId = { equals: value };
         }
       }
     }
-
-    return await prisma.matchEvent.findMany(query);
   }
+
+  return await prisma.matchEvent.findMany(query);
+}
+
 
   async findById(id) {
     return await prisma.matchEvent.findUnique({

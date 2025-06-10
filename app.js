@@ -14,6 +14,7 @@ import matchRoutes from "./routes/v1/match.js";
 import matchEventRoutes from "./routes/v1/matchEvent.js";
 import leagueRoutes from "./routes/v1/league.js";
 import teamStatsRoutes from "./routes/v1/teamStats.js";
+import transferRoutes from "./routes/v1/transfer.js";
 import { isContentTypeApplicationJSON } from "./middleware/utils.js";
 import authRoutes from "./routes/v1/auth.js";
 import jwtAuth from "./middleware/jwtAuth.js";
@@ -105,7 +106,8 @@ app.use("/api/v1/players", jwtAuth, playerRoutes);
 app.use("/api/v1/matches", jwtAuth, matchRoutes);
 app.use("/api/v1/matchEvent", jwtAuth, matchEventRoutes);
 app.use("/api/v1/leagues", jwtAuth, leagueRoutes);
-app.use('/api/v1/teamstats', jwtAuth, teamStatsRoutes)
+app.use('/api/v1/teamstats', jwtAuth, teamStatsRoutes);
+app.use('/api/v1/transfers', jwtAuth, transferRoutes);
 app.use("/api/v1/auth",  authRoutes);
 
 

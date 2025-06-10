@@ -15,25 +15,53 @@ class TeamStatsRepository {
     });
   }
 
-  async findAll(filters = {}, sortBy = "id", sortOrder = "asc") {
-    const query = {
-      orderBy: {
-        [sortBy]: sortOrder,
-      }
-    };
+async findAll(filters = {}, options = {}) {
+  const {
+    take = 25,
+    skip = 0,
+    orderBy = { id: 'asc' }
+  } = options;
 
-    if (Object.keys(filters).length > 0) {
-      query.where = {};
-      // Loop through the filters and apply them dynamically
-      for (const [key, value] of Object.entries(filters)) {
-        if (value) {
-          query.where[key] = { contains: value };
-        }
-      }
+  const query = {
+    take,
+    skip,
+    orderBy,
+    include: {
+      team: true,
+      league: true,
+    },
+    where: {},
+  };
+
+  for (const [key, value] of Object.entries(filters)) {
+    if (!value) continue;
+
+    switch (key) {
+      case 'wins':
+      case 'draws':
+      case 'losses':
+      case 'points':
+        query.where[key] = { equals: Number(value) };
+        break;
+
+      case 'team':
+        query.where.team = {
+          name: { contains: value, mode: 'insensitive' },
+        };
+        break;
+
+      case 'league':
+        query.where.league = {
+          name: { contains: value, mode: 'insensitive' },
+        };
+        break;
     }
-
-    return await prisma.teamStats.findMany(query);
   }
+
+  return await prisma.teamStats.findMany(query);
+}
+
+
 
   async findById(id) {
     return await prisma.teamStats.findUnique({

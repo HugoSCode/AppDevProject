@@ -87,6 +87,44 @@ router.delete("/:id", deleteMatchEvent);
  *       - MatchEvent
  *     security:
  *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: type
+ *         schema:
+ *           type: string
+ *         description: Filter match events by type
+ *       - in: query
+ *         name: minute
+ *         schema:
+ *           type: string
+ *         description: Filter match events by minute occured
+ *       - in: query
+ *         name: matchId
+ *         schema:
+ *           type: string
+ *         description: Filter match events by matchId
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [id, type, minute, matchId]
+ *         description: Field to sort the match events by (default is 'id')
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *         description: Order to sort the match events by (default is 'asc')
+ *       - in: query
+ *         name: amount
+ *         schema:
+ *           type: integer
+ *         description: How many entries to show per page (default is 25)
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Which page of entries to show (default is 1)
  *     responses:
  *       '200':
  *         description: Success

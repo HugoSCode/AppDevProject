@@ -25,7 +25,7 @@ const getLeagues = async (req, res) => {
       name: req.query.name || undefined,
       country: req.query.country || undefined,
     };
-
+    console.log(options)
     const leagues = await leagueRepository.findAll(filters, options);
 
     if (!leagues || leagues.length === 0) {

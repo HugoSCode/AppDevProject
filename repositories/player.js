@@ -16,6 +16,9 @@ class PlayerRepository {
       take,
       skip,
       orderBy,
+      include:{
+        team: true,
+      }
     };
 
 
@@ -25,12 +28,17 @@ class PlayerRepository {
         if (value) {
           if (key === 'name' || key === 'nationality') {
             query.where[key] = { contains: value };
-          }
-          else if (key === 'age') {
+          } else if (key === 'age') {
             query.where.age = { equals: Number(value) };
-          }
-          else if (key === 'position') {
+          } else if (key === 'position') {
             query.where[key] = { equals: value };
+          } else if (key === 'team') {
+            query.where.team = {
+              name: {
+                contains: value
+              }
+
+            };
           }
         }
       }

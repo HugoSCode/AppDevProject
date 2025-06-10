@@ -90,6 +90,53 @@ router.delete("/:id", deleteTeamStats);
  *       - TeamStats
  *     security:
  *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: team
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter team statistics by team
+ *       - in: query
+ *         name: league
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter team statistics by league
+ *       - in: query
+ *         name: wins
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter team statistics by wins
+ *       - in: query
+ *         name: draws
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter team statistics by draws
+ *       - in: query
+ *         name: losses
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter team statistics by losses        
+ *       - in: query
+ *         name: points
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter team statistics by points (Goals scored)    
+ *       - in: query
+ *         name: amount
+ *         schema:
+ *           type: integer
+ *         description: How many entries to show per page (default is 25)
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Which page of entries to show (default is 1)
  *     responses:
  *       '200':
  *         description: Success

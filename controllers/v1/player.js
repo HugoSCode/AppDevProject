@@ -22,7 +22,8 @@ const getPlayers = async (req, res) => {
       name: req.query.name || undefined,
       age: req.query.age || undefined,
       nationality: req.query.nationality || undefined,
-      position: req.query.position || undefined
+      position: req.query.position || undefined,
+      team: req.query.team || undefined
     };
 
   
@@ -30,7 +31,6 @@ const getPlayers = async (req, res) => {
         filters,
         options
       );
-
     if (!players || players.length === 0) {
       return res.status(404).json({ message: "No players found" });
     }

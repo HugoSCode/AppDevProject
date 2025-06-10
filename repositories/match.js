@@ -13,23 +13,51 @@ class MatchRepository {
     });
   }
 
-  async findAll(filters = {}, sortBy = "id", sortOrder = "asc") {
+  async findAll(filters = {}, options = {}) {
+    const {
+      take = 25,
+      skip = 0,
+      orderBy = { id: 'asc' },
+    } = options;
+
     const query = {
-      orderBy: {
-        [sortBy]: sortOrder,
-      },
+      take,
+      skip,
+      orderBy,
       include: {
         homeTeam: true,
         awayTeam: true,
         league: true,
       },
+      where: {},
     };
 
-    if (Object.keys(filters).length > 0) {
-      query.where = {};
-      for (const [key, value] of Object.entries(filters)) {
-        if (value) {
-          query.where[key] = { contains: value };
+    // Apply filters
+    for (const [key, value] of Object.entries(filters)) {
+      if (value) {
+        if (key === 'stadium') {
+          query.where.stadium = { contains: value };
+        } else if (key === 'date') {
+          query.where.date = { equals: new Date(value) };
+        }
+        else if (key === 'homeTeam') {
+          query.where.homeTeam = {
+            name: {
+              contains: value,
+            },
+          };
+        } else if (key === 'awayTeam') {
+          query.where.awayTeam = {
+            name: {
+              contains: value,
+            },
+          };
+        } else if (key === 'league') {
+          query.where.league = {
+            name: {
+              contains: value,
+            },
+          };
         }
       }
     }

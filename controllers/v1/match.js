@@ -23,10 +23,13 @@ const getMatches = async (req, res) => {
     const options =queryOptions(req.query);
     const filters = {
       stadium: req.query.stadium || undefined,
+      date: req.query.date || undefined,
+      homeTeam: req.query.homeTeam || undefined,
+      awayTeam: req.query.awayTeam || undefined,
+      league: req.query.league || undefined,
     };
  
     const matches = await matchRepository.findAll(filters, options);
-
     if (!matches || matches.length === 0) {
       return res.status(404).json({ message: "No matches found" });
     }

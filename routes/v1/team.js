@@ -149,6 +149,16 @@ router.post("/", createTeam);
  *           type: string
  *           enum: [asc, desc]
  *         description: Order to sort the teams by (default is 'asc')
+ *       - in: query
+ *         name: amount
+ *         schema:
+ *           type: integer
+ *         description: How many entries to show per page (default is 25)
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Which page of entries to show (default is 1)
  *     responses:
  *       '200':
  *         description: Success

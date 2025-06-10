@@ -19,9 +19,12 @@ const getAllTeamStats = async (req, res) => {
   try {
     const options =queryOptions(req.query);
     const filters = {
-      name: req.query.name || undefined,
-      coach: req.query.coach || undefined,
-      stadium: req.query.stadium || undefined
+      team: req.query.team || undefined,
+      wins: req.query.wins || undefined,
+      draws: req.query.draws || undefined,
+      losses: req.query.losses || undefined,
+      league: req.query.league || undefined,
+      points : req.query.points || undefined,
     };
 
  
