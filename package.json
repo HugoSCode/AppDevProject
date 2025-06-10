@@ -13,7 +13,9 @@
     "seed-super-admin": "node seeding/seed-super-admin-github.js",
     "seed-prem-league": "node seeding/seedPremTeams.js && node seeding/seedPremPlayers && node seeding/seedMatch && node seeding/seedMatchEvent",
     "user-test": "node seeding/seed-admin.js && node seeding/seed-super-admin-github.js && node seeding/seed-normal.js && mocha tests/01-user.test.js",
-    "base-test": "mocha tests/02-player.test.js"
+    "base-test": "mocha tests/02-player.test.js && mocha tests/03-team.test.js && mocha tests/04-transfer.test.js",
+    "test-team": "mocha tests/03-team.test.js",
+    "test-transfer": "mocha tests/04-transfer.test.js"
   },
   "type": "module",
   "keywords": [],
@@ -23,6 +25,7 @@
     "@prisma/client": "^6.7.0",
     "bcryptjs": "^3.0.2",
     "csv-parser": "^3.2.0",
+    "date-fns": "^4.1.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.0",

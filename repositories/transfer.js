@@ -2,13 +2,14 @@ import prisma from "../prisma/client.js";
 
 class TransferRepository {
   async create(data) {
+    const parsedDate = new Date(data.date);
     return await prisma.transfer.create({
       data: {
         playerId: data.playerId,
         fromTeamId: data.fromTeamId,
         toTeamId: data.toTeamId,
         fee: data.fee,
-        date: data.date,
+        date: parsedDate,
         transferType: data.transferType,
       },
     });

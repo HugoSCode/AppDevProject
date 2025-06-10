@@ -97,11 +97,7 @@ const login = async (req, res) => {
 
     const { JWT_SECRET, JWT_LIFETIME } = process.env;
 
-    /**
-     * Return a JWT. The first argument is the payload, i.e., an object containing
-     * the authenticated user's id and name, the second argument is the secret
-     * or public/private key, and the third argument is the lifetime of the JWT
-     */
+
     const token = jwt.sign(
       {
         id: user.id,
@@ -109,7 +105,7 @@ const login = async (req, res) => {
         role: user.role,
         enabled: user.enabled
       },
-      process.env.JWT_SECRET, // <-- make sure this isn't just `JWT_SECRET`
+      process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_LIFETIME }
     );
     if (!user.enabled) {

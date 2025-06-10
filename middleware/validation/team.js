@@ -14,7 +14,7 @@ const validatePostTeam = (req, res, next) => {
         }),
   
       coach: Joi.string()
-        .min(6)
+        .min(5)
         .max(20)
         .messages({
           "string.base": "Coach must be a string",
@@ -24,7 +24,7 @@ const validatePostTeam = (req, res, next) => {
         }),
   
       stadium: Joi.string()
-        .min(6)
+        .min(3)
         .max(100)
         .messages({
           "string.base": "Stadium must be a string",

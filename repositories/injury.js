@@ -3,12 +3,12 @@ import { parse } from "date-fns";
 
 class InjuryRepository {
   async create(data) {
-    const parsedDate=parse()
+    const parsedDate = new Date(data.date);
     return await prisma.injury.create({
       data: {
         player: { connect: { id: data.playerId } },
         description: data.description,
-        date: data.date,
+        date: parsedDate,
         duration: data.duration,
       },
     });

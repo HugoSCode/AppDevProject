@@ -2,9 +2,10 @@ import prisma from "../prisma/client.js";
 
 class MatchRepository {
   async create(data) {
+    const parsedDate = new Date(data.date);
     return await prisma.match.create({
       data: {
-        date: new Date(data.date),
+        date: parsedDate,
         stadium: data.stadium,
         homeTeam: { connect: { id: data.homeTeamId } },
         awayTeam: { connect: { id: data.awayTeamId } },
