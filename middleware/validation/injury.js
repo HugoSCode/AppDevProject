@@ -24,7 +24,7 @@ const validatePostInjury = (req, res, next) => {
       }),
 
     date: Joi.date()
-      .iso()
+     
       .greater("2000-01-01")
       .required()
       .messages({

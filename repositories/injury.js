@@ -1,11 +1,13 @@
 import prisma from "../prisma/client.js";
+import { parse } from "date-fns";
 
 class InjuryRepository {
   async create(data) {
+    const parsedDate=parse()
     return await prisma.injury.create({
       data: {
         player: { connect: { id: data.playerId } },
-        description: data.goals,
+        description: data.description,
         date: data.date,
         duration: data.duration,
       },
