@@ -34,6 +34,8 @@ model Team {
   stadium       String
   players       Player[]
   teamStats     TeamStats[]
+  league        League        @relation("leagueId", fields: [leagueId], references: [id])
+  leagueId      String
   homeMatches   Match[]        @relation("HomeTeam")
   awayMatches   Match[]        @relation("AwayTeam")
   fromTransfers Transfer[]     @relation("FromTeam")
@@ -84,6 +86,7 @@ model League {
   name       String       @unique
   country    String
   matches    Match[]
+  teams      Team[]
   standings  TeamStats[]
 }
 
@@ -91,8 +94,8 @@ model TeamStats {
   id         String      @id @default(uuid())
   team       Team        @relation(fields: [teamId], references: [id])
   teamId     String
-  league     League      @relation(fields: [leagueId], references: [id])
-  leagueId   String
+  league     League?      @relation(fields: [leagueId], references: [id])
+  leagueId   String?
   wins       Int
   draws      Int
   losses     Int

@@ -20,7 +20,8 @@ const getTeams = async (req, res) => {
     const filters = {
       name: req.query.name || undefined,
       coach: req.query.coach || undefined,
-      stadium: req.query.stadium || undefined
+      stadium: req.query.stadium || undefined,
+      leagueId: req.query.leagueId || undefined
     };
 
     const options =queryOptions(req.query);

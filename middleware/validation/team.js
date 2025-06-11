@@ -3,7 +3,7 @@ import Joi from "joi";
 const validatePostTeam = (req, res, next) => {
     const teamSchema = Joi.object({
       name: Joi.string()
-        .min(4)
+        .min(3)
         .max(20)
         .messages({
           "string.base": "Team name must be a string",
@@ -33,6 +33,15 @@ const validatePostTeam = (req, res, next) => {
           "string.empty": "Stadium cannot be empty",
           "any.required": "Stadium is required",
         }),
+
+       leagueId: Joi.string()
+        .min(3)
+        .max(100)
+        .uuid()
+        .messages({
+          "string.guid": "enter a valid league uuid",
+          "any.required": "Stadium is required",
+        }),
     });
   
     const { error } = teamSchema.validate(req.body);
@@ -49,7 +58,7 @@ const validatePostTeam = (req, res, next) => {
 const validatePutTeam = (req, res, next) => {
   const teamSchema = Joi.object({
      name: Joi.string()
-      .min(4)
+      .min(3)
       .max(20)
       .optional()
       .messages({
@@ -60,7 +69,6 @@ const validatePutTeam = (req, res, next) => {
       }),
 
     coach: Joi.string()
-      .email()
       .min(6)
       .max(20)
       .optional()

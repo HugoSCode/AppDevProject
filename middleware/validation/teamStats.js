@@ -1,26 +1,25 @@
 import Joi from "joi";
 
-const uuidPattern =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 const validatePostTeamStats = (req, res, next) => {
   const matchStatSchema = Joi.object({
     teamId: Joi.string()
-      .pattern(uuidPattern)
+      .uuid()
       .required()
       .messages({
         "string.base": "Team ID must be a string",
-        "string.pattern.base": "Team ID must be a valid UUID",
+        "string.guid": "Team ID must be a valid UUID",
         "string.empty": "Team ID cannot be empty",
         "any.required": "Team ID is required",
       }),
 
     leagueId: Joi.string()
-      .pattern(uuidPattern)
+      .pattern()
+      .uuid()
       .required()
       .messages({
         "string.base": "League ID must be a string",
-        "string.pattern.base": "League ID must be a valid UUID",
+        "string.guid": "League ID must be a valid UUID",
         "string.empty": "League ID cannot be empty",
         "any.required": "League ID is required",
       }),
@@ -86,20 +85,20 @@ const validatePostTeamStats = (req, res, next) => {
 const validatePutTeamStats = (req, res, next) => {
   const matchStatSchema = Joi.object({
     teamId: Joi.string()
-      .pattern(uuidPattern)
+      .uuid()
       .optional()
       .messages({
         "string.base": "Team ID must be a string",
-        "string.pattern.base": "Team ID must be a valid UUID",
+        "string.guid": "Team ID must be a valid UUID",
         "string.empty": "Team ID cannot be empty",
       }),
 
     leagueId: Joi.string()
-      .pattern(uuidPattern)
+      .uuid()
       .optional()
       .messages({
         "string.base": "League ID must be a string",
-        "string.pattern.base": "League ID must be a valid UUID",
+        "string.guid": "League ID must be a valid UUID",
         "string.empty": "League ID cannot be empty",
       }),
 

@@ -38,9 +38,16 @@ export function runCrudTests({
           .post(basePath)
           .set('Authorization', `Bearer ${adminToken}`)
           .send(createData);
+          console.log(createData);
         expect(res.status).to.equal(201);
         createdId = res.body.data.id || res.body.data[0]?.id;
+        console.log("data", res.body);
+        await request(app)
+          .delete(`${basePath}/${createdId}`)
+          .set('Authorization', `Bearer ${adminToken}`);
       });
+
+
 
       it('should allow SUPER_ADMIN to create', async () => {
         const res = await request(app)
@@ -48,6 +55,8 @@ export function runCrudTests({
           .set('Authorization', `Bearer ${superToken}`)
           .send(createData);
         expect(res.status).to.equal(201);
+        createdId = res.body.data.id || res.body.data[1]?.id;
+
       });
 
       it('should not allow NORMAL user to create', async () => {
@@ -58,7 +67,7 @@ export function runCrudTests({
         expect(res.status).to.equal(403);
       });
 
-  
+
     });
 
     describe('GET - Read', () => {

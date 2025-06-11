@@ -12,6 +12,7 @@ class TeamRepository {
         players: {
           connect: data.playerIds?.map(id => ({ id })),
         },
+        league: { connect: { id: data.leagueId } },
       },
     });
   }

@@ -54,14 +54,15 @@ export default router;
  *           enum:
  *             - PERMANENT
  *             - LOAN
+ *             - FREE
  *           example: "PERMANENT"
  *   securitySchemes:
  *     BearerAuth:
  *       type: http
  *       scheme: bearer
  *       bearerFormat: JWT
- *   security:
- *     - BearerAuth: []
+ * security:
+ *   - BearerAuth: []
  */
 
 /**
@@ -94,16 +95,89 @@ export default router;
  *                   $ref: '#/components/schemas/Transfer'
  *       '400':
  *         description: Invalid transfer data
- *
+ */
+
+/**
+ * @swagger
+ * /api/v1/transfers:
  *   get:
  *     summary: Get all transfers
  *     tags:
  *       - Transfer
  *     security:
  *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: playerId
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: Filter by player ID
+ *       - in: query
+ *         name: fromTeamId
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: Filter by origin team
+ *       - in: query
+ *         name: toTeamId
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: Filter by destination team
+ *       - in: query
+ *         name: fee
+ *         schema:
+ *           type: string
+ *         description: Filter by fee
+ *       - in: query
+ *         name: date
+ *         schema:
+ *           type: string
+ *         description: Filter by date of transfer
+ *       - in: query
+ *         name: transferType
+ *         schema:
+ *           type: string
+ *           enum: [PERMANENT, LOAN, FREE]
+ *         description: Filter by type of transfer
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [date, fee, fromTeam, toTeam]
+ *           default: date
+ *         description: Field to sort by
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: desc
+ *         description: Sort order
+ *       - in: query
+ *         name: amount
+ *         schema:
+ *           type: integer
+ *         description: How many entries to show per page (default is 25)
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Which page of entries to show (default is 1)
  *     responses:
  *       '200':
  *         description: List of transfers
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Transfer'
+ *       '401':
+ *         description: Unauthorized
+ *       '500':
+ *         description: Server error
  */
 
 /**
@@ -125,7 +199,12 @@ export default router;
  *     responses:
  *       '200':
  *         description: Transfer details
- *
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Transfer'
+ *       '404':
+ *         description: Transfer not found
  *   put:
  *     summary: Update a transfer
  *     tags:
@@ -148,7 +227,10 @@ export default router;
  *     responses:
  *       '200':
  *         description: Transfer updated
- *
+ *       '400':
+ *         description: Invalid input
+ *       '404':
+ *         description: Transfer not found
  *   delete:
  *     summary: Delete a transfer
  *     tags:
@@ -165,4 +247,7 @@ export default router;
  *     responses:
  *       '200':
  *         description: Transfer deleted
+ *       '404':
+ *         description: Transfer not found
  */
+

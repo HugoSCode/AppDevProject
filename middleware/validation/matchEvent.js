@@ -42,7 +42,6 @@ const validatePostMatchEvent = (req, res, next) => {
 
     playerId: Joi.string()
       .uuid()
-      .allow(null)
       .trim()
       .optional()
       .messages({
@@ -110,7 +109,6 @@ const validatePutMatchEvent = (req, res, next) => {
     playerId: Joi.string()
       .uuid()
       .trim()
-      .allow(null)
       .messages({
         "string.guid": "Player ID must be a valid UUID",
         "string.trim": "Player ID cannot have leading or trailing spaces",

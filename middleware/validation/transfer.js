@@ -111,7 +111,6 @@ const validatePostTransfer = (req, res, next) => {
       }),
 
     date: Joi.date()
-      .iso()
       .messages({
         "date.base": "Date must be a valid date",
         "date.format": "Date must be in ISO format",

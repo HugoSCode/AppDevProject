@@ -105,7 +105,7 @@ app.use("/api/v1/users", jwtAuth, userRoutes);
 app.use("/api/v1/teams", jwtAuth, teamRoutes);
 app.use("/api/v1/players", jwtAuth, playerRoutes);
 app.use("/api/v1/matches", jwtAuth, matchRoutes);
-app.use("/api/v1/matchEvent", jwtAuth, matchEventRoutes);
+app.use("/api/v1/matchEvents", jwtAuth, matchEventRoutes);
 app.use("/api/v1/leagues", jwtAuth, leagueRoutes);
 app.use('/api/v1/teamStats', jwtAuth, teamStatsRoutes);
 app.use('/api/v1/transfers', jwtAuth, transferRoutes);

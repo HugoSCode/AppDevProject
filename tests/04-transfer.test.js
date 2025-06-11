@@ -4,17 +4,17 @@ runCrudTests({
     modelName:'transfer',
     basePath: '/api/v1/transfers',
     createData:{
-        "playerId": "036194a8-2e9d-451b-8579-f612bd4e62e2",
-        "fromTeamId": "c186762f-9d43-4475-b3c3-ade62fb545ad",
-        "toTeamId": "c186762f-9d43-4475-b3c3-ade62fb545ad",
+        "playerId": "0ecf54a9-b3ef-41a5-96b1-ca632ea623ff",
+        "fromTeamId": "2fcfb99a-0089-4bc0-96fd-df424e665e1e",
+        "toTeamId": "d9e8bc7a-0f84-43d1-9aca-6b555500fb31",
         "fee": 50000000,
-        "date": "2024-07-01T12:00:00Z",
+        "date": "2024-07-01",
         "transferType": "PERMANENT"
     },
     updateData:{
-        "playerId": "036194a8-2e9d-451b-8579-f612bd4e62e2",
+        "playerId": "0ecf54a9-b3ef-41a5-96b1-ca632ea623ff",
         "fee": 40000000,
-        "date": "2024-07-01T12:00:00Z",
+        "date": "2024-07-01T00:00:00.000Z",
         "transferType": "LOAN"
     }
 });

@@ -2,28 +2,25 @@ import Joi from "joi";
 
 const validatePostMatch = (req, res, next) => {
   const matchSchema = Joi.object({
-    homeTeamId: Joi.number()
-      .integer()
-      .positive()
+    homeTeamId: Joi.string()
       .required()
+      .uuid()
       .messages({
-        "number.base": "Home team ID must be a number",
-        "number.integer": "Home team ID must be an integer",
-        "number.positive": "Home team ID must be a positive number",
+        "string.base": "Home team ID must be a string",
+        "string.guid": "Home Team ID must be a valid UUID",
         "any.required": "Home team ID is required",
+        "string.empty": "Home team ID cannot be empty",
+        
       }),
 
-    awayTeamId: Joi.number()
-      .integer()
-      .positive()
-      .invalid(Joi.ref("homeTeamId"))
+    awayTeamId: Joi.string()
       .required()
+      .uuid()
       .messages({
-        "number.base": "Away team ID must be a number",
-        "number.integer": "Away team ID must be an integer",
-        "number.positive": "Away team ID must be a positive number",
-        "any.invalid": "Home team and away team cannot be the same",
+        "string.base": "Away team ID must be a string",
+        "string.guid": "Away Team ID must be a valid UUID",
         "any.required": "Away team ID is required",
+        "string.empty": "Away team ID cannot be empty",
       }),
 
     homeScore: Joi.number()
@@ -53,7 +50,6 @@ const validatePostMatch = (req, res, next) => {
       }),
 
     date: Joi.date()
-      .iso()
       .greater("2000-01-01")
       .required()
       .messages({
@@ -62,6 +58,25 @@ const validatePostMatch = (req, res, next) => {
         "date.greater": "Date must be after January 1, 2000",
         "any.required": "Match date is required",
       }),
+      stadium: Joi.string()
+        .min(3)
+        .max(100)
+        .messages({
+          "string.base": "Stadium must be a string",
+          "string.min": "Stadium name must be at least 6 characters",
+          "string.max": "Stadium name must not exceed 100 characters",
+          "string.empty": "Stadium cannot be empty",
+          "any.required": "Stadium is required",
+        }),
+          leagueId: Joi.string()
+            .uuid()
+            .required()
+            .messages({
+              "string.base": "League ID must be a string",
+              "string.guid": "League ID must be a valid UUID",
+              "string.empty": "League ID cannot be empty",
+              "any.required": "League ID is required",
+            }),
   });
 
   const { error } = matchSchema.validate(req.body);
@@ -76,25 +91,20 @@ const validatePostMatch = (req, res, next) => {
 
 const validatePutMatch = (req, res, next) => {
   const matchSchema = Joi.object({
-    homeTeamId: Joi.number()
-      .integer()
-      .positive()
-      .required()
+    homeTeamId: Joi.string()
+      .uuid()
       .messages({
-        "number.base": "Home team ID must be a number",
-        "number.integer": "Home team ID must be an integer",
-        "number.positive": "Home team ID must be a positive number",
+        "string.base": "Home team ID must be a string",
+        "string.guid": "Home Team ID must be a valid UUID",
+        "string.empty": "Home team ID cannot be empty",
       }),
 
-    awayTeamId: Joi.number()
-      .integer()
-      .positive()
-      .invalid(Joi.ref("homeTeamId"))
+    awayTeamId: Joi.string()
+      .uuid()
       .messages({
-        "number.base": "Away team ID must be a number",
-        "number.integer": "Away team ID must be an integer",
-        "number.positive": "Away team ID must be a positive number",
-        "any.invalid": "Home team and away team cannot be the same",
+        "string.base": "Away team ID must be a string",
+        "string.guid": "Away Team ID must be a valid UUID",
+        "string.empty": "Away team ID cannot be empty",
       }),
 
     homeScore: Joi.number()
@@ -111,12 +121,12 @@ const validatePutMatch = (req, res, next) => {
     awayScore: Joi.number()
       .integer()
       .min(0)
-      .max(99)
+      .max(30)
       .messages({
         "number.base": "Away score must be a number",
         "number.integer": "Away score must be an integer",
         "number.min": "Away score cannot be negative",
-        "number.max": "Away score cannot be more than 99",
+        "number.max": "Away score cannot be more than 30",
       }),
 
     date: Joi.date()
@@ -127,6 +137,23 @@ const validatePutMatch = (req, res, next) => {
         "date.format": "Date must follow ISO 8601 format",
         "date.greater": "Date must be after January 1, 2000",
       }),
+
+    stadium: Joi.string()
+        .min(3)
+        .max(100)
+        .messages({
+          "string.base": "Stadium must be a string",
+          "string.min": "Stadium name must be at least 6 characters",
+          "string.max": "Stadium name must not exceed 100 characters",
+          "string.empty": "Stadium cannot be empty",
+        }),
+     leagueId: Joi.string()
+          .uuid()
+          .messages({
+            "string.base": "League ID must be a string",
+            "string.guid": "League ID must be a valid UUID",
+            "string.empty": "League ID cannot be empty",
+          }),
   }).min(1).messages({
     "object.min": "At least one field must be provided to update the match",
   });
