@@ -1,6 +1,8 @@
 // Import the Express module
 import dotenv from 'dotenv';
-dotenv.config();
+if (process.env.APP_ENV === 'development') {
+  dotenv.config();
+}
 import express from "express";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
