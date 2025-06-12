@@ -3,8 +3,8 @@ https://heapsfootballapi.onrender.com
 # Setup development environment
 Create a .env file and copy the details below 
 
-APP_ENV=development
-DATABASE_URL="postgresql://postgres:HelloWorld123@localhost:5432/postgres"
+APP_ENV=development          //set to production to use live site
+DATABASE_URL="postgresql://postgres:HelloWorld123@localhost:5432/postgres" 
 JWT_SECRET=HelloWorld123
 
 JWT_LIFETIME=1hr
@@ -13,7 +13,7 @@ in app.js file ensure url for server is set like this
 
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "http://localhost:3000",         //set to  url: "https://heapsfootballapi.onrender.com", to use the live site
       },
     ],
 
@@ -40,5 +40,6 @@ Ensure tables have been seeded
 # Demo video
 https://streamable.com/zmpv4x
 
+* There was an issue at the end with deleting a user which I fixed while still filming. Apologies for this. I also recognise I likely didnt capture enough of the filtering / sorting for the fields in the video
 
 
