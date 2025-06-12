@@ -1,5 +1,5 @@
 import express from "express";
-
+import { getReqLimit, createReqLimit } from "../../middleware/limitRequests.js";
 import {
   createPlayerStatistics,
   getAllPlayerStatistics,
@@ -15,11 +15,11 @@ import {
 
 const router = express.Router();
 
-router.post("/", validatePostPlayerStatistics, createPlayerStatistics);
-router.get("/", getAllPlayerStatistics);
-router.get("/:id", getPlayerStatistics);
-router.put("/:id", validatePutPlayerStatistics, updatePlayerStatistics);
-router.delete("/:id", deletePlayerStatistics);
+router.post("/", validatePostPlayerStatistics, createReqLimit, createPlayerStatistics);
+router.get("/", getReqLimit, getAllPlayerStatistics);
+router.get("/:id", getReqLimit, getPlayerStatistics);
+router.put("/:id", createReqLimit, validatePutPlayerStatistics, updatePlayerStatistics);
+router.delete("/:id", createReqLimit, deletePlayerStatistics);
 
 /**
  * @swagger

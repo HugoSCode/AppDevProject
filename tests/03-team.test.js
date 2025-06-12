@@ -1,4 +1,7 @@
 import { runCrudTests } from './base.test.js';
+import { leagueId } from '../utils/fetchTestIds.js';
+
+
 
 
 runCrudTests({
@@ -8,7 +11,7 @@ runCrudTests({
         name: "PSG",
         coach: "Dave Smith",
         stadium: "MCG Melbourne",
-        leagueId: "0b700c10-27a3-4512-b919-c91bf8c1fb6e"
+        leagueId: leagueId
     },
     updateData:{
         name: "PSG",

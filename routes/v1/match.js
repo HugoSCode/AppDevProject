@@ -1,5 +1,5 @@
 import express from "express";
-
+import { getReqLimit, createReqLimit } from "../../middleware/limitRequests.js";
 import {
   createMatch,
   getMatches,
@@ -15,11 +15,11 @@ import {
 
 const router = express.Router();
 
-router.post("/", validatePostMatch, createMatch);
-router.get("/", getMatches);
-router.get("/:id", getMatch);
-router.put("/:id", validatePutMatch, updateMatch);
-router.delete("/:id", deleteMatch);
+router.post("/", validatePostMatch, createReqLimit, createMatch);
+router.get("/", getReqLimit, getMatches);
+router.get("/:id", getReqLimit, getMatch);
+router.put("/:id", createReqLimit, validatePutMatch, updateMatch);
+router.delete("/:id", createReqLimit, deleteMatch);
 
 /**
  * @swagger
@@ -79,7 +79,7 @@ router.delete("/:id", deleteMatch);
  *       '500':
  *         description: Internal server error
  */
- 
+
 /**
  * @swagger
  * /api/v1/matches:
