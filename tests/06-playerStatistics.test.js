@@ -1,11 +1,11 @@
 import { runCrudTests } from "./base.test.js";
-
+import { playerId, matchId } from "../utils/fetchTestIds.js";
 runCrudTests({
     modelName: 'playerStatistics',
     basePath: '/api/v1/playerStatistics',
     createData: {
-    playerId: "0ecf54a9-b3ef-41a5-96b1-ca632ea623ff",
-    matchId: "02d661b1-b626-478a-81f3-003ec4fc61a0",
+    playerId: playerId,
+    matchId: matchId,
     goals: 0,
     assists: 1,
     passes: 38,
@@ -13,10 +13,10 @@ runCrudTests({
     saves: 0
 },
 updateData:{
-    playerId: "0ecf54a9-b3ef-41a5-96b1-ca632ea623ff",
-    goals: 1
+    goals: 1,
+    assists: 0
 },
 filterField: "matchId",
-filterValue: "02d661b1-b626-478a-81f3-003ec4fc61a0",
+filterValue: matchId,
 sortField: "goals"
 });

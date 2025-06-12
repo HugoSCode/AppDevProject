@@ -1,6 +1,5 @@
-
 import express from "express";
-
+import { getReqLimit, createReqLimit } from "../../middleware/limitRequests.js";
 import {
   createLeague,
   getLeagues,
@@ -16,11 +15,11 @@ import {
 
 const router = express.Router();
 
-router.post("/", validatePostLeague, createLeague);
-router.get("/", getLeagues);
-router.get("/:id", getLeague);
-router.put("/:id", validatePutLeague, updateLeague);
-router.delete("/:id", deleteLeague);
+router.post("/", validatePostLeague, createReqLimit, createLeague);
+router.get("/", getReqLimit, getLeagues);
+router.get("/:id", getReqLimit, getLeague);
+router.put("/:id", validatePutLeague, createReqLimit, updateLeague);
+router.delete("/:id", createReqLimit, deleteLeague);
 
 /**
  * @swagger

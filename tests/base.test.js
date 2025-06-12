@@ -41,7 +41,6 @@ export function runCrudTests({
           .post(basePath)
           .set('Authorization', `Bearer ${adminToken}`)
           .send(createData);
-        console.log(createData);
         expect(res.status).to.equal(201);
         createdId = res.body.data.id || res.body.data[0]?.id;
         console.log("data", res.body);

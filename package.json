@@ -14,15 +14,7 @@
     "seed-prem-league": "node seeding/seedPremTeams.js && node seeding/seedPremPlayers && node seeding/seedMatch && node seeding/seedMatchEvent",
     "seed-leagues": "node seeding/seed-leagues.js",
     "user-test": "node seeding/seed-admin.js && node seeding/seed-super-admin-github.js && node seeding/seed-normal.js && mocha tests/01-user.test.js",
-    "base-test": "mocha tests/02-player.test.js && mocha tests/03-team.test.js && mocha tests/04-transfer.test.js",
-    "test-team": "mocha tests/03-team.test.js",
-    "test-transfer": "mocha tests/04-transfer.test.js",
-    "test-teamStats": "mocha tests/05-teamStats.test.js",
-    "test-playerStats": "mocha tests/06-playerStatistics.test.js",
-    "test-match": "mocha tests/07-match.test.js",
-    "test-matchEvent": "mocha tests/08-matchEvent.test.js",
-    "test-league": "mocha tests/09-league.test.js",
-    "test-injury": "mocha tests/10-injury.test.js"
+    "base-test": "node utils/fetchTestIds.js && mocha tests/02-player.test.js && mocha tests/03-team.test.js && mocha tests/04-transfer.test.js && mocha tests/05-teamStats.test.js && mocha tests/06-playerStatistics.test.js && mocha tests/07-match.test.js && mocha tests/08-matchEvent.test.js && mocha tests/09-league.test.js && mocha tests/10-injury.test.js"
   },
   "type": "module",
   "keywords": [],
