@@ -1,4 +1,5 @@
 import express from "express";
+import { getReqLimit, createReqLimit } from "../../middleware/limitRequests.js";
 import {
   createInjury,
   getInjuries,
@@ -13,11 +14,11 @@ import {
 
 const router = express.Router();
 
-router.post("/", validatePostInjury, createInjury);
-router.get("/", getInjuries);
-router.get("/:id", getInjury);
-router.put("/:id", validatePutInjury, updateInjury);
-router.delete("/:id", deleteInjury);
+router.post("/", validatePostInjury, createReqLimit, createInjury);
+router.get("/", getReqLimit, getInjuries);
+router.get("/:id", getReqLimit, getInjury);
+router.put("/:id", createReqLimit, validatePutInjury, updateInjury);
+router.delete("/:id", createReqLimit, deleteInjury);
 
 /**
  * @swagger

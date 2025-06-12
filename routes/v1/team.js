@@ -1,5 +1,5 @@
 import express from "express";
-
+import { getReqLimit, createReqLimit } from "../../middleware/limitRequests.js";
 import {
   createTeam,
   getTeams,
@@ -12,16 +12,16 @@ import {
 import {
   validatePostTeam,
   validatePutTeam,
-}from "../../middleware/validation/team.js"
+} from "../../middleware/validation/team.js"
 
 const router = express.Router();
 
 
-router.post("/", validatePostTeam, createTeam);
-router.get("/", getTeams);
-router.get("/:id", getTeam);
-router.put("/:id", validatePutTeam, updateTeam);
-router.delete("/:id", deleteTeam);
+router.post("/", createReqLimit, validatePostTeam, createTeam);
+router.get("/", getReqLimit, getTeams);
+router.get("/:id", getReqLimit, getTeam);
+router.put("/:id", createReqLimit, validatePutTeam, updateTeam);
+router.delete("/:id", createReqLimit, deleteTeam);
 
 /**
  * @swagger

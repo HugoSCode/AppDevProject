@@ -1,5 +1,7 @@
 import express from "express";
 
+import { getReqLimit, createReqLimit } from "../../middleware/limitRequests.js";
+
 import {
   createTransfer,
   getTransfers,
@@ -15,11 +17,11 @@ import {
 
 const router = express.Router();
 
-router.post("/", validatePostTransfer, createTransfer);
-router.get("/", getTransfers);
-router.get("/:id", getTransfer);
-router.put("/:id", validatePutTransfer, updateTransfer);
-router.delete("/:id", deleteTransfer);
+router.post("/", validatePostTransfer, createReqLimit, createTransfer);
+router.get("/", getReqLimit, getTransfers);
+router.get("/:id", getReqLimit, getTransfer);
+router.put("/:id", createReqLimit, validatePutTransfer, updateTransfer);
+router.delete("/:id", createReqLimit, deleteTransfer);
 
 export default router;
 

@@ -1,5 +1,5 @@
 import express from "express";
-
+import { getReqLimit, createReqLimit } from "../../middleware/limitRequests.js";
 import {
   createMatchEvent,
   getMatchEvents,
@@ -15,11 +15,11 @@ import {
 
 const router = express.Router();
 
-router.post("/", validatePostMatchEvent, createMatchEvent);
-router.get("/", getMatchEvents);
-router.get("/:id", getMatchEvent);
-router.put("/:id", validatePutMatchEvent, updateMatchEvent);
-router.delete("/:id", deleteMatchEvent);
+router.post("/", validatePostMatchEvent, createReqLimit, createMatchEvent);
+router.get("/", getReqLimit, getMatchEvents);
+router.get("/:id", getReqLimit, getMatchEvent);
+router.put("/:id", createReqLimit, validatePutMatchEvent, updateMatchEvent);
+router.delete("/:id", createReqLimit, deleteMatchEvent);
 
 /**
  * @swagger
