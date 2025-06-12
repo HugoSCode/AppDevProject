@@ -19,6 +19,6 @@ runCrudTests({
         transferType: "LOAN"
     },
     filterField: "fromTeamId",
-    filterValue: team1Id,
+    filterValue: teamId1,
     sortField: "fee"
 });

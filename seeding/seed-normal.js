@@ -22,7 +22,6 @@ const validateUser = (user) => {
 };
 
 async function seedUsers() {
-  await prisma.user.deleteMany();
   const users = [];
 
   // Read the CSV file and store users in an array
