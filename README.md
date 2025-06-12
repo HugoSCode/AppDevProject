@@ -9,6 +9,14 @@ JWT_SECRET=HelloWorld123
 
 JWT_LIFETIME=1hr
 
+in app.js file ensure url for server is set like this 
+
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+
 Then run this in the terminal whle having docker desktop app open:
 
 docker run --name AppDevProject -e POSTGRES_PASSWORD=HelloWorld123 -p 5432:5432 -d postgres
@@ -28,6 +36,9 @@ Ensure tables have been seeded
 
 # ERD
 ![Database ER diagram (crow's foot) (1)](https://github.com/user-attachments/assets/c2012c78-9382-4132-9cad-b511fc81d6f6)
+
+# Demo video
+https://streamable.com/zmpv4x
 
 
 
