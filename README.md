@@ -1,4 +1,6 @@
 # AppDevProject
+
+# Live site url
 https://heapsfootballapi.onrender.com
 # Setup development environment
 Create a .env file and copy the details below 
@@ -20,6 +22,8 @@ in app.js file ensure url for server is set like this
 Then run this in the terminal whle having docker desktop app open:
 
 docker run --name AppDevProject -e POSTGRES_PASSWORD=HelloWorld123 -p 5432:5432 -d postgres
+
+Then run npm run dev and click the link visit the localhost and add /api-docs at the end of the url to see the page
 # Seeding the database
 * **Admin users:** npm run seed-admin
 * **Normal users:** npm run seed-normal
@@ -40,6 +44,6 @@ Ensure tables have been seeded
 # Demo video
 https://streamable.com/zmpv4x
 
-* There was an issue at the end with deleting a user which I fixed while still filming. Apologies for this. I also recognise I likely didnt capture enough of the filtering / sorting for the fields in the video
+* There was an issue at the end with deleting a user which I fixed while still filming. Apologies for this. I also recognise I likely didnt capture enough of the filtering / sorting for the fields in the video. Thought the video would end up being way too long
 
 
