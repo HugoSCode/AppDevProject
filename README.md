@@ -8,7 +8,8 @@ DATABASE_URL="postgresql://postgres:HelloWorld123@localhost:5432/postgres"
 JWT_SECRET=HelloWorld123
 JWT_LIFETIME=1hr
 
-Then run this in the terminal whle having docker desktop app open
+Then run this in the terminal whle having docker desktop app open:
+
 docker run --name AppDevProject -e POSTGRES_PASSWORD=HelloWorld123 -p 5432:5432 -d postgres
 # Seeding the database
 Admin users: npm run seed-admin
