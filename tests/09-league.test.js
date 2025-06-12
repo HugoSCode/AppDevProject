@@ -1,5 +1,4 @@
 import { runCrudTests } from "./base.test.js";
-
 runCrudTests({
 modelName: "teamStats",
 basePath:"/api/v1/leagues",
