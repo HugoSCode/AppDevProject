@@ -13,11 +13,11 @@ Then run this in the terminal whle having docker desktop app open:
 
 docker run --name AppDevProject -e POSTGRES_PASSWORD=HelloWorld123 -p 5432:5432 -d postgres
 # Seeding the database
-Admin users: npm run seed-admin
-Normal users: npm run seed-normal
-Super admin users: npm run seed-super-admin
-Leagues: npm run seed-leagues
-Players, Teams, Matches, MatchEvents: npm run seed-prem-league
+* Admin users: npm run seed-admin
+* Normal users: npm run seed-normal
+* Super admin users: npm run seed-super-admin
+* Leagues: npm run seed-leagues
+* Players, Teams, Matches, MatchEvents: npm run seed-prem-league
 # Open prisma studio
 npx prisma studio
 # Run API tests
