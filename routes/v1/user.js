@@ -320,6 +320,8 @@ router.delete("/:id", createReqLimit, deleteUser);
  *     summary: Delete an user by id
  *     tags:
  *       - User
+ *     security:
+ *       - BearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
