@@ -6,7 +6,10 @@ export function runCrudTests({
   modelName,
   basePath,
   createData,
-  updateData
+  updateData,
+  filterField,
+  filterValue,
+  sortField
 }) {
   describe(`${modelName} API Role-Based CRUD Tests`, () => {
     let adminToken, superToken, normalToken;
@@ -38,7 +41,7 @@ export function runCrudTests({
           .post(basePath)
           .set('Authorization', `Bearer ${adminToken}`)
           .send(createData);
-          console.log(createData);
+        console.log(createData);
         expect(res.status).to.equal(201);
         createdId = res.body.data.id || res.body.data[0]?.id;
         console.log("data", res.body);
@@ -84,6 +87,52 @@ export function runCrudTests({
           .set('Authorization', `Bearer ${normalToken}`);
         expect(res.status).to.equal(200);
       });
+
+      if (filterField && filterValue !== undefined) {
+        it(`should filter by ${filterField}`, async () => {
+          const res = await request(app)
+            .get(`${basePath}?${filterField}=${filterValue}`)
+            .set('Authorization', `Bearer ${adminToken}`);
+
+          expect(res.status).to.equal(200);
+          for (const item of res.body.data) {
+            expect(item[filterField]).to.contain(filterValue);
+          }
+        });
+      }
+
+      if (sortField) {
+        it(`should sort by chosen ${sortField} in ascending}`, async () => {
+          const res = await request(app)
+            .get(`${basePath}?sortBy=${sortField}`)
+            .set('Authorization', `Bearer ${adminToken}`);
+
+          expect(res.status).to.equal(200);
+          const data = res.body.data;
+
+          const values = data.map(item => item[sortField]);
+          const sorted = [...values].sort();
+
+          expect(values).to.deep.equal(sorted);
+        });
+
+        it(`should sort by ${sortField} descending`, async () => {
+          const res = await request(app)
+            .get(`${basePath}?sortBy=${sortField}&sortOrder=desc`)
+            .set('Authorization', `Bearer ${adminToken}`);
+
+          expect(res.status).to.equal(200);
+          const data = res.body.data;
+
+          const values = data.map(item => item[sortField]);
+          const sorted = typeof values[0] === 'number'
+            ? [...values].sort((a, b) => b - a)  // descending for numbers
+            : [...values].sort().reverse();      // descending for strings
+
+          expect(values).to.deep.equal(sorted);
+        });
+      }
+
     });
 
     describe('PUT - Update', () => {

@@ -108,17 +108,18 @@ router.delete("/:id", deleteInjury);
  *         schema:
  *           type: integer
  *         description: Page number (default is 1)
- *       - in: query
+*       - in: query
  *         name: sortBy
  *         schema:
  *           type: string
- *         description: Field to sort by (e.g., "date")
+ *           enum: [id, date, description, playerId, duration]
+ *         description: Field to sort the injuries by (default is 'id')
  *       - in: query
- *         name: sortDir
+ *         name: sortOrder
  *         schema:
  *           type: string
  *           enum: [asc, desc]
- *         description: Sort direction ("asc" or "desc")
+ *         description: Order to sort the injuries by (default is 'asc')
  *     responses:
  *       '200':
  *         description: List of injury records

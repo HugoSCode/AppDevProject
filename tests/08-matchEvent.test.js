@@ -12,5 +12,8 @@ runCrudTests({
     },
     updateData: {
         minute: 26
-    }
+    },
+    filterField: "type",
+    filterValue: "Yellow Card",
+    sortField: "minute"
 });

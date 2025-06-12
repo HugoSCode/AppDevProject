@@ -16,5 +16,8 @@ updateData:{
     wins: 11,
     draws: 5,
     points: 37 
-}
+},
+filterField: "teamId",
+filterValue: "2fcfb99a-0089-4bc0-96fd-df424e665e1e",
+sortField: "wins"
 });

@@ -14,7 +14,6 @@ const validatePostTeamStats = (req, res, next) => {
       }),
 
     leagueId: Joi.string()
-      .pattern()
       .uuid()
       .required()
       .messages({

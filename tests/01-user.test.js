@@ -38,7 +38,6 @@ describe('User API Basic CRUD Tests', () => {
       expect(res.status).to.equal(201);
       expect(res.body.message).to.equal('User successfully created');
       
-      // Find and store the created user ID for later tests
       const createdUser = res.body.data.find(user => user.email === 'test@example.com');
       if (createdUser) {
         testUserId = createdUser.id;
@@ -198,7 +197,7 @@ describe('User API Basic CRUD Tests', () => {
       const res = await request(app)
         .get('/api/v1/users');
 
-      expect(res.body.message).to.equal('No token provided');
+      expect(res.body.message).to.equal('No valid token provided');
     });
 
     it('should deny requests with invalid token', async () => {

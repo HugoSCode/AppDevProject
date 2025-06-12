@@ -14,6 +14,9 @@ runCrudTests({
     age: 37,
     nationality: "Argentina",
     position: "FORWARD"
-  }
+  },
+  filterField: "name",
+  filterValue: "Lionel Messi",
+  sortField: "age"
 });
 

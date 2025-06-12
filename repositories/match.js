@@ -9,7 +9,7 @@ class MatchRepository {
         stadium: data.stadium,
         homeTeam: { connect: { id: data.homeTeamId } },
         awayTeam: { connect: { id: data.awayTeamId } },
-        league: data.leagueId ? { connect: { id: data.leagueId } } : undefined,
+        league: data.leagueId ? { connect: { id: data.leagueId } } : undefined
       },
     });
   }
