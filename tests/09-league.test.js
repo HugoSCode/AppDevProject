@@ -9,5 +9,9 @@ createData:{
 },
 updateData:{
 country: "Australia & New Zealand"
-}
+},
+filterField: "name",
+filterValue: "Premier League",
+sortField: "country"
+
 });

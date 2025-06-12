@@ -14,5 +14,8 @@ runCrudTests({
         name: "PSG",
         coach: "Dave Brown",
         stadium: "Dave's place"
-    }
+    },
+    filterField: "name",
+    filterValue: "PSG",
+    sortField: "stadium"
 });

@@ -23,32 +23,6 @@ const validatePostMatch = (req, res, next) => {
         "string.empty": "Away team ID cannot be empty",
       }),
 
-    homeScore: Joi.number()
-      .integer()
-      .min(0)
-      .max(99)
-      .required()
-      .messages({
-        "number.base": "Home score must be a number",
-        "number.integer": "Home score must be an integer",
-        "number.min": "Home score cannot be negative",
-        "number.max": "Home score cannot be more than 99",
-        "any.required": "Home score is required",
-      }),
-
-    awayScore: Joi.number()
-      .integer()
-      .min(0)
-      .max(99)
-      .required()
-      .messages({
-        "number.base": "Away score must be a number",
-        "number.integer": "Away score must be an integer",
-        "number.min": "Away score cannot be negative",
-        "number.max": "Away score cannot be more than 99",
-        "any.required": "Away score is required",
-      }),
-
     date: Joi.date()
       .greater("2000-01-01")
       .required()
@@ -105,28 +79,6 @@ const validatePutMatch = (req, res, next) => {
         "string.base": "Away team ID must be a string",
         "string.guid": "Away Team ID must be a valid UUID",
         "string.empty": "Away team ID cannot be empty",
-      }),
-
-    homeScore: Joi.number()
-      .integer()
-      .min(0)
-      .max(99)
-      .messages({
-        "number.base": "Home score must be a number",
-        "number.integer": "Home score must be an integer",
-        "number.min": "Home score cannot be negative",
-        "number.max": "Home score cannot be more than 99",
-      }),
-
-    awayScore: Joi.number()
-      .integer()
-      .min(0)
-      .max(30)
-      .messages({
-        "number.base": "Away score must be a number",
-        "number.integer": "Away score must be an integer",
-        "number.min": "Away score cannot be negative",
-        "number.max": "Away score cannot be more than 30",
       }),
 
     date: Joi.date()

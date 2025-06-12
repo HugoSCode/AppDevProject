@@ -35,7 +35,7 @@ async findAll(filters = {}, options = {}) {
     if (!value) continue;
 
     switch (key) {
-      case 'playerId':
+      case 'duration':
         query.where[key] = { equals: Number(value) };
         break;
     

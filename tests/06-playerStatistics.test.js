@@ -15,5 +15,8 @@ runCrudTests({
 updateData:{
     playerId: "0ecf54a9-b3ef-41a5-96b1-ca632ea623ff",
     goals: 1
-}
+},
+filterField: "matchId",
+filterValue: "02d661b1-b626-478a-81f3-003ec4fc61a0",
+sortField: "goals"
 });

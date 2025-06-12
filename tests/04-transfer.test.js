@@ -16,5 +16,8 @@ runCrudTests({
         "fee": 40000000,
         "date": "2024-07-01T00:00:00.000Z",
         "transferType": "LOAN"
-    }
+    },
+    filterField: "playerId",
+    filterValue: "0ecf54a9-b3ef-41a5-96b1-ca632ea623ff",
+    sortField: "fee"
 });

@@ -104,29 +104,29 @@ router.delete("/:id", deleteMatch);
  *         name: homeTeam
  *         schema:
  *           type: string
- *         description: Filter matches by home team
+ *         description: Filter matches by home team name
  *       - in: query
  *         name: awayTeam
  *         schema:
  *           type: string
- *         description: Filter matches by away team
+ *         description: Filter matches by away team name
  *       - in: query
  *         name: league
  *         schema:
  *           type: string
- *         description: Filter matches by league
+ *         description: Filter matches by league name
  *       - in: query
  *         name: sortBy
  *         schema:
  *           type: string
- *           enum: [id, date, stadium]
- *         description: Field to sort the players by (default is 'id')
+ *           enum: [id, date, stadium, leagueId, homeTeamId, awayTeamId]
+ *         description: Field to sort the matches by (default is 'id')
  *       - in: query
  *         name: sortOrder
  *         schema:
  *           type: string
  *           enum: [asc, desc]
- *         description: Order to sort the players by (default is 'asc')
+ *         description: Order to sort the matches by (default is 'asc')
  *       - in: query
  *         name: amount
  *         schema:
