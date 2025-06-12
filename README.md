@@ -33,7 +33,8 @@ Then run npm run dev and click the link visit the localhost and add /api-docs at
 # Open prisma studio
 npx prisma studio
 # Run API tests
-Ensure tables have been seeded
+* Switch to production setup
+* Ensure tables have been seeded
 * **User tests:** npm run user-test
 * **All basic crud tests:** npm run base-test
 * **Crud limit tests:** npm run limit-test
