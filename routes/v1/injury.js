@@ -28,7 +28,7 @@ router.delete("/:id", deleteInjury);
  *       properties:
  *         playerId:
  *           type: string
- *           example: "023c5f44-e042-4dc9-82df-cd4cc991c380"
+ *           example: "0ecf54a9-b3ef-41a5-96b1-ca632ea623ff"
  *         description:
  *           type: string
  *           example: "Ankle sprain"

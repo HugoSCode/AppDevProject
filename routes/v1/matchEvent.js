@@ -56,7 +56,7 @@ router.delete("/:id", deleteMatchEvent);
 
 /**
  * @swagger
- * /api/v1/matchEvent:
+ * /api/v1/matchEvents:
  *   post:
  *     summary: Create a new match event
  *     tags:
@@ -80,7 +80,7 @@ router.delete("/:id", deleteMatchEvent);
 
 /**
  * @swagger
- * /api/v1/matchEvent:
+ * /api/v1/matchEvents:
  *   get:
  *     summary: Get all match events
  *     tags:
@@ -136,7 +136,7 @@ router.delete("/:id", deleteMatchEvent);
 
 /**
  * @swagger
- * /api/v1/matchEvent/{id}:
+ * /api/v1/matchEvents/{id}:
  *   get:
  *     summary: Get a match event by ID
  *     tags:
@@ -161,7 +161,7 @@ router.delete("/:id", deleteMatchEvent);
 
 /**
  * @swagger
- * /api/v1/matchEvent/{id}:
+ * /api/v1/matchEvents/{id}:
  *   put:
  *     summary: Update a match event
  *     tags:
@@ -194,7 +194,7 @@ router.delete("/:id", deleteMatchEvent);
 
 /**
  * @swagger
- * /api/v1/matchEvent/{id}:
+ * /api/v1/matchEvents/{id}:
  *   delete:
  *     summary: Delete a match event
  *     tags:

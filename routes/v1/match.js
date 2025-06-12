@@ -31,7 +31,7 @@ router.delete("/:id", deleteMatch);
  *         date:
  *           type: string
  *           format: date-time
- *           example: "2025-06-01T15:30:00.000Z"
+ *           example: "2025-06-01"
  *         stadium:
  *           type: string
  *           example: "Old Trafford"
