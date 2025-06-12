@@ -6,6 +6,7 @@ Create a .env file and copy the details below
 APP_ENV=development
 DATABASE_URL="postgresql://postgres:HelloWorld123@localhost:5432/postgres"
 JWT_SECRET=HelloWorld123
+
 JWT_LIFETIME=1hr
 
 Then run this in the terminal whle having docker desktop app open:
